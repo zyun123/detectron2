@@ -5,7 +5,7 @@ import multiprocessing as mp
 from collections import deque
 import cv2
 import torch
-
+import time
 from detectron2.data import MetadataCatalog
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.video_visualizer import VideoVisualizer
@@ -34,21 +34,29 @@ class VisualizationDemo(object):
         else:
             self.predictor = DefaultPredictor(cfg)
 
-    def run_on_image(self, image):
+    def run_on_image(self, image,compare_predict_res,another_image):
         """
         Args:
             image (np.ndarray): an image of shape (H, W, C) (in BGR order).
                 This is the format used by OpenCV.
+            compare_predict_res: bool
+            another_image: 图片上已经有另外一个模型预测的信息画在上面了
 
         Returns:
             predictions (dict): the output of the model.
             vis_output (VisImage): the visualized image output.
         """
         vis_output = None
+        time1 = time.time()
         predictions = self.predictor(image)
+        time2 = time.time()
+        print("predictor use time : ###############",time2-time1)
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
-        visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
+        if compare_predict_res:
+            visualizer = Visualizer(another_image, self.metadata, instance_mode=self.instance_mode)    
+        else:
+            visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
         if "panoptic_seg" in predictions:
             panoptic_seg, segments_info = predictions["panoptic_seg"]
             vis_output = visualizer.draw_panoptic_seg_predictions(

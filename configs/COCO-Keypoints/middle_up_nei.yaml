@@ -1,0 +1,33 @@
+DATALOADER:
+  NUM_WORKERS: 4
+DATASETS:
+  TEST: ('middle_up_nei_test',)
+  TRAIN: ('middle_up_nei_train',)
+INPUT:
+  MAX_SIZE_TEST: 1280
+  MAX_SIZE_TRAIN: 1280
+  MIN_SIZE_TEST: 720
+  MIN_SIZE_TRAIN: (720,)
+  RANDOM_FLIP: none
+MODEL:
+  # ANCHOR_GENERATOR:
+  #   ASPECT_RATIOS: [[2.0]]
+  # PIXEL_MEAN: [141.584,147.873,152.721]
+  # PIXEL_STD: [42.925,30.753,25.354]
+  RESNETS:
+    DEPTH: 50
+  ROI_KEYPOINT_HEAD:
+    #全经络版本84个点 ， 保健版74个点  ,保健版+肺经 90个点
+    NUM_KEYPOINTS: 90
+  WEIGHTS: /mnt/dlData/samples/models/model_final_04e291keypoints_50.pkl
+OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
+SOLVER:
+  BASE_LR: 0.01
+  CHECKPOINT_PERIOD: 10000
+  IMS_PER_BATCH: 4
+  MAX_ITER: 180000
+  REFERENCE_WORLD_SIZE: 1
+  STEPS: (120000,140000,160000)
+TEST:
+  EVAL_PERIOD: 2000
+_BASE_: Base-Keypoint-RCNN-FPN.yaml

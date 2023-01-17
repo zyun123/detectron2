@@ -1,0 +1,34 @@
+DATALOADER:
+  NUM_WORKERS: 4
+DATASETS:
+  TEST: ('middle_down_wai_test',)
+  TRAIN: ('middle_down_wai_train',)
+INPUT:
+  MAX_SIZE_TEST: 1280
+  MAX_SIZE_TRAIN: 1280
+  MIN_SIZE_TEST: 720
+  MIN_SIZE_TRAIN: (720,)
+  RANDOM_FLIP: none
+MODEL:
+  # PIXEL_MEAN: [140.871, 146.204, 151.602]
+  # PIXEL_STD: [43.098, 30.778, 25.503]
+  ROI_HEADS:
+    SCORE_THRESH_TEST: 0.7
+    NMS_THRESH_TEST: 0.3
+  RESNETS:
+    DEPTH: 50
+  ROI_KEYPOINT_HEAD:
+    #全经络版本是90个点，调理版本是56
+    NUM_KEYPOINTS: 56
+  WEIGHTS: /mnt/dlData/samples/models/model_final_04e291keypoints_50.pkl
+OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
+SOLVER:
+  BASE_LR: 0.01
+  CHECKPOINT_PERIOD: 10000
+  IMS_PER_BATCH: 4
+  MAX_ITER: 180000
+  REFERENCE_WORLD_SIZE: 1
+  STEPS: (120000,140000,160000)
+TEST:
+  EVAL_PERIOD: 2000
+_BASE_: Base-Keypoint-RCNN-FPN.yaml
