@@ -129,34 +129,66 @@ def _keypoints_to_heatmap(
         return rois.new().long(), rois.new().long()
     offset_x = rois[:, 0]
     offset_y = rois[:, 1]
-    scale_x = heatmap_size / (rois[:, 2] - rois[:, 0])
-    scale_y = heatmap_size / (rois[:, 3] - rois[:, 1])
 
-    offset_x = offset_x[:, None]
-    offset_y = offset_y[:, None]
-    scale_x = scale_x[:, None]
-    scale_y = scale_y[:, None]
+    if isinstance(heatmap_size,int):
+        scale_x = heatmap_size / (rois[:, 2] - rois[:, 0])
+        scale_y = heatmap_size / (rois[:, 3] - rois[:, 1])
 
-    x = keypoints[..., 0]
-    y = keypoints[..., 1]
+        offset_x = offset_x[:, None]
+        offset_y = offset_y[:, None]
+        scale_x = scale_x[:, None]
+        scale_y = scale_y[:, None]
 
-    x_boundary_inds = x == rois[:, 2][:, None]
-    y_boundary_inds = y == rois[:, 3][:, None]
+        x = keypoints[..., 0]
+        y = keypoints[..., 1]
 
-    x = (x - offset_x) * scale_x
-    x = x.floor().long()
-    y = (y - offset_y) * scale_y
-    y = y.floor().long()
+        x_boundary_inds = x == rois[:, 2][:, None]
+        y_boundary_inds = y == rois[:, 3][:, None]
 
-    x[x_boundary_inds] = heatmap_size - 1
-    y[y_boundary_inds] = heatmap_size - 1
+        x = (x - offset_x) * scale_x
+        x = x.floor().long()
+        y = (y - offset_y) * scale_y
+        y = y.floor().long()
 
-    valid_loc = (x >= 0) & (y >= 0) & (x < heatmap_size) & (y < heatmap_size)
-    vis = keypoints[..., 2] > 0
-    valid = (valid_loc & vis).long()
+        x[x_boundary_inds] = heatmap_size - 1
+        y[y_boundary_inds] = heatmap_size - 1
 
-    lin_ind = y * heatmap_size + x
-    heatmaps = lin_ind * valid
+        valid_loc = (x >= 0) & (y >= 0) & (x < heatmap_size) & (y < heatmap_size)
+        vis = keypoints[..., 2] > 0
+        valid = (valid_loc & vis).long()
+
+        lin_ind = y * heatmap_size + x
+        heatmaps = lin_ind * valid
+    elif isinstance(heatmap_size,list):
+        scale_x = heatmap_size[1] / (rois[:, 2] - rois[:, 0])   #w
+        scale_y = heatmap_size[0] / (rois[:, 3] - rois[:, 1])
+
+        offset_x = offset_x[:, None]
+        offset_y = offset_y[:, None]
+        scale_x = scale_x[:, None]
+        scale_y = scale_y[:, None]
+
+        x = keypoints[..., 0]
+        y = keypoints[..., 1]
+
+        x_boundary_inds = x == rois[:, 2][:, None]
+        y_boundary_inds = y == rois[:, 3][:, None]
+
+        x = (x - offset_x) * scale_x
+        x = x.floor().long()
+        y = (y - offset_y) * scale_y
+        y = y.floor().long()
+
+        x[x_boundary_inds] = heatmap_size[1] - 1
+        y[y_boundary_inds] = heatmap_size[0] - 1
+
+        valid_loc = (x >= 0) & (y >= 0) & (x < heatmap_size[1]) & (y < heatmap_size[0])
+        vis = keypoints[..., 2] > 0
+        valid = (valid_loc & vis).long()
+
+        lin_ind = y * heatmap_size[1] + x
+        heatmaps = lin_ind * valid
+
 
     return heatmaps, valid
 
@@ -230,6 +262,9 @@ def heatmaps_to_keypoints(maps: torch.Tensor, rois: torch.Tensor) -> torch.Tenso
 
         x = (x_int.float() + 0.5) * width_corrections[i]
         y = (y_int.float() + 0.5) * height_corrections[i]
+
+        # x = (x_int.float()) * width_corrections[i]
+        # y = (y_int.float()) * height_corrections[i]
 
         xy_preds[i, :, 0] = x + offset_x[i]
         xy_preds[i, :, 1] = y + offset_y[i]

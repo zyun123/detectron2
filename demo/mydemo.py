@@ -6,10 +6,11 @@ import numpy as np
 import os
 import tempfile
 import time
+import torch
 import warnings
 import cv2
 import tqdm
-from demo.re_process import main_reprocess
+from re_process import main_reprocess
 from detectron2.config import get_cfg
 from detectron2.data.detection_utils import read_image
 from detectron2.utils.logger import setup_logger
@@ -107,10 +108,18 @@ if __name__ == "__main__":
     logger.info("Arguments: " + str(args))
 
     #middle_down_wai  包含头部56个点
-    kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
+    # kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
+    # kp_rules_down = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
+
+    #middle_down_wai  全经络模型包含90个点
+    kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN
     kp_rules_down = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
 
     #middle_up_nei 有肺经  90个点
+    # kp_names_up = COCO_PERSON_KEYPOINT_NAMES_UP
+    # kp_rules_up = KEYPOINT_CONNECTION_RULES_UP
+
+    #middle_up_nei  partial leg 28个点
     kp_names_up = COCO_PERSON_KEYPOINT_NAMES_UP
     kp_rules_up = KEYPOINT_CONNECTION_RULES_UP
     
@@ -131,8 +140,8 @@ if __name__ == "__main__":
         }
     cfg = setup_cfg(args,kp_use_mean_std,kp_names_key)
     MetadataCatalog.get(cfg.DATASETS.TEST[0]).set(**metadata)
-
-    demo = VisualizationDemo(cfg)
+    device = torch.device("cuda:0" if torch.cuda.is_available else "cpu")
+    demo = VisualizationDemo(cfg,parallel = False)
 
 
     #---------------------use realsense camera -----------------------------
@@ -173,7 +182,7 @@ if __name__ == "__main__":
                 # img = np.rot90(img,2)
                 img = cv2.flip(img,1)
             if compare_predict_res:
-                another_image = read_image(os.path.join("/911G/data/temp/20221229新加手托脚托新数据/20230105_25人/middle_up_nei_p1",
+                another_image = read_image(os.path.join("/911G/data/temp/20221229新加手托脚托新数据/middle_up_nei_精确标注132套新增/train_cgrec",
                                                         os.path.basename(path)),format="RGB")
             start_time = time.time()
             # cv2.imshow("test_image",img)

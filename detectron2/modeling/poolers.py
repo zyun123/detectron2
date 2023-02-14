@@ -250,9 +250,10 @@ class ROIPooler(nn.Module):
         )
 
         num_channels = x[0].shape[1]
-        output_size = self.output_size[0]
+        # output_size = self.output_size[0]
+        output_size = self.output_size
 
-        output = _create_zeros(pooler_fmt_boxes, num_channels, output_size, output_size, x[0])
+        output = _create_zeros(pooler_fmt_boxes, num_channels, output_size[0], output_size[1], x[0])
 
         for level, pooler in enumerate(self.level_poolers):
             inds = nonzero_tuple(level_assignments == level)[0]

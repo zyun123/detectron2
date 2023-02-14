@@ -449,6 +449,8 @@ def annotations_to_instances(annos, image_size, mask_format="polygon"):
 
     if len(annos) and "keypoints" in annos[0]:
         kpts = [obj.get("keypoints", []) for obj in annos]
+        na = len(kpts)
+        kpts = np.array(kpts).reshape(na,-1,3)
         target.gt_keypoints = Keypoints(kpts)
 
     return target

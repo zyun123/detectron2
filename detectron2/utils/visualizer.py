@@ -29,6 +29,7 @@ _LARGE_MASK_AREA_THRESH = 120000
 _OFF_WHITE = (1.0, 1.0, 240.0 / 255)
 _BLACK = (0, 0, 0)
 _RED = (1.0, 0, 0)
+_BLUE = (0, 0, 1.0)
 
 _KEYPOINT_THRESHOLD = 0.05
 
@@ -804,10 +805,16 @@ class Visualizer:
             # draw keypoint
             x, y, prob = keypoint
             if prob > self.keypoint_threshold:
-                self.draw_circle((x, y), color=_RED)
-                if keypoint_names:
-                    keypoint_name = keypoint_names[idx]
-                    visible[keypoint_name] = (x, y)
+                # self.draw_text(keypoint_names[idx],(x,y),color = "r",font_size = 7,horizontal_alignment = "left")
+                self.draw_circle((x, y), color=_RED,radius=1)
+            else:
+                with open("/home/zy/Desktop/test_confidence.txt","a") as f:
+                    f.write("hello world\n")
+                # self.draw_text(np.round(prob*100),(x,y),color = "b",font_size = 7,horizontal_alignment = "left")
+                self.draw_circle((x, y), color=_BLUE,radius=2)
+            if keypoint_names:
+                keypoint_name = keypoint_names[idx]
+                visible[keypoint_name] = (x, y)
 
         if self.metadata.get("keypoint_connection_rules"):
             for kp0, kp1, color in self.metadata.keypoint_connection_rules:
@@ -815,7 +822,9 @@ class Visualizer:
                     x0, y0 = visible[kp0]
                     x1, y1 = visible[kp1]
                     color = tuple(x / 255.0 for x in color)
+                    # self.draw_line([x0, x1], [y0, y1], color=(0,0,1))
                     self.draw_line([x0, x1], [y0, y1], color=color)
+                    # self.draw_line([x0, x1], [y0, y1], color=color)
 
         # draw lines from nose to mid-shoulder and mid-shoulder to mid-hip
         # Note that this strategy is specific to person keypoints.
@@ -885,7 +894,7 @@ class Visualizer:
             text,
             size=font_size * self.output.scale,
             family="sans-serif",
-            bbox={"facecolor": "black", "alpha": 0.8, "pad": 0.7, "edgecolor": "none"},
+            bbox={"facecolor": "none", "alpha": 0.8, "pad": 0.7, "edgecolor": "none"},
             verticalalignment="top",
             horizontalalignment=horizontal_alignment,
             color=color,
@@ -1020,7 +1029,8 @@ class Visualizer:
         """
         if linewidth is None:
             linewidth = self._default_font_size / 3
-        linewidth = max(linewidth, 1)
+        # linewidth = max(linewidth, 1)
+        linewidth = 1
         self.output.ax.add_line(
             mpl.lines.Line2D(
                 x_data,

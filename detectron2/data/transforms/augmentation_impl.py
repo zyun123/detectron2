@@ -26,22 +26,22 @@ from .augmentation import Augmentation, _transform_to_aug
 from .transform import ExtentTransform, ResizeTransform, RotationTransform
 
 __all__ = [
-    "FixedSizeCrop",
-    "RandomApply",
-    "RandomBrightness",
-    "RandomContrast",
-    "RandomCrop",
-    "RandomExtent",
-    "RandomFlip",
-    "RandomSaturation",
-    "RandomLighting",
-    "RandomRotation",
-    "Resize",
-    "ResizeScale",
-    "ResizeShortestEdge",
-    "RandomCrop_CategoryAreaConstraint",
-    "RandomResize",
-    "MinIoURandomCrop",
+    "FixedSizeCrop", #对图片进行固定大小的裁剪
+    "RandomApply",     #随机应用一个转换到图片上
+    "RandomBrightness",     #随机调整图片亮度
+    "RandomContrast",     #随机调整图片对比度
+    "RandomCrop",     #随机裁剪图片
+    "RandomExtent",     #随机扩大或缩小图片
+    "RandomFlip",     #随机翻转图片
+    "RandomSaturation",     #随机调整图片饱和度
+    "RandomLighting",     #随机调整图片光照
+    "RandomRotation",     # 随机旋转图片
+    "Resize",     #对图片进行缩放
+    "ResizeScale",     #对图片进行缩放，使得图片符合一个给定的比例
+    "ResizeShortestEdge",     # 对图片进行缩放，使得图片最短边符合一个给定长度
+    "RandomCrop_CategoryAreaConstraint",     #随机裁剪图片，并且约束分类区域
+    "RandomResize",     # 随机调整图片大小
+    "MinIoURandomCrop",     #随机裁剪图片，并且保证图片 IoU 不低于给定阈值
 ]
 
 

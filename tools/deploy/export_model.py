@@ -24,6 +24,7 @@ from detectron2.structures import Boxes
 from detectron2.utils.env import TORCH_VERSION
 from detectron2.utils.file_io import PathManager
 from detectron2.utils.logger import setup_logger
+from detectron2.data.catalog import DatasetCatalog, MetadataCatalog
 
 
 def setup_cfg(args):
@@ -38,14 +39,14 @@ def setup_cfg(args):
 
 
 def export_caffe2_tracing(cfg, torch_model, inputs):
-    from detectron2.export import Caffe2Tracer
+    from detectron2.export.api import Caffe2Tracer
 
     tracer = Caffe2Tracer(cfg, torch_model, inputs)
     if args.format == "caffe2":
         caffe2_model = tracer.export_caffe2()
         caffe2_model.save_protobuf(args.output)
         # draw the caffe2 graph
-        caffe2_model.save_graph(os.path.join(args.output, "model.svg"), inputs=inputs)
+        # caffe2_model.save_graph(os.path.join(args.output, "model.svg"), inputs=inputs)
         return caffe2_model
     elif args.format == "onnx":
         import onnx
@@ -63,14 +64,14 @@ def export_caffe2_tracing(cfg, torch_model, inputs):
 def export_scripting(torch_model):
     assert TORCH_VERSION >= (1, 8)
     fields = {
-        "proposal_boxes": Boxes,
-        "objectness_logits": Tensor,
+        # "proposal_boxes": Boxes,
+        # "objectness_logits": Tensor,
         "pred_boxes": Boxes,
         "scores": Tensor,
         "pred_classes": Tensor,
-        "pred_masks": Tensor,
+        # "pred_masks": Tensor,
         "pred_keypoints": torch.Tensor,
-        "pred_keypoint_heatmaps": torch.Tensor,
+        # "pred_keypoint_heatmaps": torch.Tensor,
     }
     assert args.format == "torchscript", "Scripting only supports torchscript format."
 
@@ -190,10 +191,10 @@ if __name__ == "__main__":
         help="Method to export models",
         default="tracing",
     )
-    parser.add_argument("--config-file", default="", metavar="FILE", help="path to config file")
-    parser.add_argument("--sample-image", default=None, type=str, help="sample image for input")
+    parser.add_argument("--config-file", default="configs/COCO-Keypoints/middle_up_nei.yaml", metavar="FILE", help="path to config file")
+    parser.add_argument("--sample-image", default="", type=str, help="sample image for input")
     parser.add_argument("--run-eval", action="store_true")
-    parser.add_argument("--output", help="output directory for the converted model")
+    parser.add_argument("--output",default = "./output", help="output directory for the converted model")
     parser.add_argument(
         "opts",
         help="Modify config options using the command-line",
@@ -201,6 +202,14 @@ if __name__ == "__main__":
         nargs=argparse.REMAINDER,
     )
     args = parser.parse_args()
+    args.export_method = "caffe2_tracing"
+    args.format = "caffe2"
+    args.opts = ["MODEL.WEIGHTS","/911G/d2_models/care_models/middle_up_nei_jb362_it16_cgrec.pth"]
+    args.sample_image = "/911G/data/temp/20221229新加手托脚托新数据/精确标注362套middle_up_nei_changerec/test/m_up_nei_20221228151558270.jpg"
+
+
+
+
     logger = setup_logger()
     logger.info("Command line arguments: " + str(args))
     PathManager.mkdirs(args.output)
@@ -208,6 +217,7 @@ if __name__ == "__main__":
     torch._C._jit_set_bailout_depth(1)
 
     cfg = setup_cfg(args)
+    MetadataCatalog.get(cfg.DATASETS.TEST[0])
 
     # create a torch model
     torch_model = build_model(cfg)

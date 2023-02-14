@@ -19,7 +19,7 @@ MODEL:
     DEPTH: 50
   ROI_KEYPOINT_HEAD:
     #全经络版本是90个点，调理版本是56
-    NUM_KEYPOINTS: 56
+    NUM_KEYPOINTS: 90
   WEIGHTS: /mnt/dlData/samples/models/model_final_04e291keypoints_50.pkl
 OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
 SOLVER:

@@ -1,0 +1,71 @@
+#修改anchor size 和ratio，增加kploss权重 ，增加box iou阈值设置 ，box回归使用ciou 
+#rpn和roi 的输入 input_features 设置为p4,p5
+#修改roi_pool 的输出尺寸为（14，28）
+
+
+DATALOADER:
+  NUM_WORKERS: 2
+
+DATASETS:
+  TEST: ('middle_up_nei_test',)
+  TRAIN: ('middle_up_nei_train',)
+
+INPUT:
+  MAX_SIZE_TEST: 1280
+  MAX_SIZE_TRAIN: 1280
+  MIN_SIZE_TEST: 736
+  MIN_SIZE_TRAIN: (736,)
+  RANDOM_FLIP: none
+
+MODEL:
+  RESNETS:
+    DEPTH: 50
+  # PIXEL_MEAN: [141.584,147.873,152.721]
+  # PIXEL_STD: [42.925,30.753,25.354]
+  RPN:
+    IN_FEATURES: ["p4","p5"]
+  ROI_HEADS:
+    IN_FEATURES: ["p4","p5"]
+    BATCH_SIZE_PER_IMAGE: (128)
+    #表示预测框与真实框的 IOU 需要不低于 0.7，才能被认为是一个正确的预测
+    IOU_THRESHOLDS: [0.7]
+  ROI_BOX_HEAD:
+    # Options are: "smooth_l1", "giou", "diou", "ciou"
+    #在box_head 中精确回归
+    BBOX_REG_LOSS_TYPE: "ciou"
+
+  ROI_KEYPOINT_HEAD:
+    #全经络版本84个点 ， 保健版74个点  ,保健版+肺经 90个点
+    NUM_KEYPOINTS: 90
+    #roi align 输出尺寸
+    POOLER_RESOLUTION: [14,28]
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: False
+    LOSS_WEIGHT: 4.0
+  ANCHOR_GENERATOR:
+    SIZES: [[541,541]]
+    #ratios = 2.0: h/w = 2   ratios = 0.5: h/w = 0.5
+    ASPECT_RATIOS: [[0.5]]
+  
+  
+
+  WEIGHTS: /home/zy/Downloads/model_final_a6e10b.pkl
+
+OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
+
+SOLVER:
+  BASE_LR: 0.01
+  
+  #batch size
+  IMS_PER_BATCH: 2
+  REFERENCE_WORLD_SIZE: 1
+  STEPS: (12000,16000)
+  MAX_ITER: 18000
+  CHECKPOINT_PERIOD: 5000
+
+
+TEST:
+  EVAL_PERIOD: 2000
+_BASE_: Base-Keypoint-RCNN-FPN.yaml
+
+#visible image in tensorboard per 1000 iter
+# VIS_PERIOD: 1000

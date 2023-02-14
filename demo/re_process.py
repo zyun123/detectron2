@@ -7,7 +7,7 @@ import numpy as np
 import os
 import glob
 import math
-from demo.keypoints_names import *
+from keypoints_names import *
 __all__ = ["main_process","split_kp"]
 #置信度和距离阈值
 CONFIDENCE_THRESHOLD = 50

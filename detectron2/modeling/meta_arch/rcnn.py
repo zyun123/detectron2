@@ -103,18 +103,19 @@ class GeneralizedRCNN(nn.Module):
         from detectron2.utils.visualizer import Visualizer
 
         storage = get_event_storage()
-        max_vis_prop = 20
-
+        max_vis_prop = 20   #最多显示20个框
+        #将可视化box 增加 可视化keypoints
         for input, prop in zip(batched_inputs, proposals):
             img = input["image"]
             img = convert_image_to_rgb(img.permute(1, 2, 0), self.input_format)
             v_gt = Visualizer(img, None)
-            v_gt = v_gt.overlay_instances(boxes=input["instances"].gt_boxes)
+            v_gt = v_gt.overlay_instances(boxes=input["instances"].gt_boxes,keypoints=input["instances"].gt_keypoints)
             anno_img = v_gt.get_image()
             box_size = min(len(prop.proposal_boxes), max_vis_prop)
             v_pred = Visualizer(img, None)
             v_pred = v_pred.overlay_instances(
-                boxes=prop.proposal_boxes[0:box_size].tensor.cpu().numpy()
+                boxes=prop.proposal_boxes[0:box_size].tensor.cpu().numpy(),
+                # keypoints = prop.proposal_keypoints[0:box_size].tensor.cpu().numpy()
             )
             prop_img = v_pred.get_image()
             vis_img = np.concatenate((anno_img, prop_img), axis=1)
