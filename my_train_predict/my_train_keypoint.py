@@ -16,25 +16,25 @@ from detectron2.utils.logger import setup_logger
 import os
 from detectron2.data.datasets import register_coco_instances
 from demo.keypoints_names import *
-# kp_names = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
-# kp_rules = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
-kp_names = COCO_PERSON_KEYPOINT_NAMES_UP
-kp_rules = KEYPOINT_CONNECTION_RULES_UP
+kp_names = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
+kp_rules = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
+# kp_names = COCO_PERSON_KEYPOINT_NAMES_UP
+# kp_rules = KEYPOINT_CONNECTION_RULES_UP
 metadata = {
             "thing_classes": ["person"],
             "keypoint_names": kp_names,
             "keypoint_connection_rules": kp_rules,
             "keypoint_flip_map": [],
         }
-register_coco_instances("middle_up_nei_train",
+register_coco_instances("middle_down_wai_train",
                         metadata, 
-                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec/train.json", 
-                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec/train")
+                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/train.json", 
+                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/train")
 
-register_coco_instances("middle_up_nei_test", 
+register_coco_instances("middle_down_wai_test", 
                         metadata, 
-                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec/test.json", 
-                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec/test")
+                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/test.json", 
+                        "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/test")
 setup_logger()
 
 def build_keypoint_train_aug(cfg):
@@ -47,7 +47,7 @@ def build_keypoint_train_aug(cfg):
         # T.RandomRotation(angle=[180, 0], expand=False, sample_style="choice"),
         # T.RandomRotation(angle=[-5, 5], expand=False),
         # T.RandomContrast(intensity_min = 0.75,intensity_max = 1.25),
-        T.RandomBrightness(intensity_min = 0.75,intensity_max = 1.25),
+        # T.RandomBrightness(intensity_min = 0.75,intensity_max = 1.25),
         # T.RandomSaturation(intensity_min = 0.75,intensity_max = 1.25),
         # T.RandomLighting(scale=0.1),
         # T.RandomCrop(crop_type="relative_range",crop_size=(0.9,0.8)),
@@ -106,13 +106,13 @@ class KeypointTrainer(DefaultTrainer):
 
 if __name__ == "__main__":
     cfg = get_cfg()
-    config_file = "configs/COCO-Keypoints/middle_up_nei_cg2.yaml"
+    config_file = "configs/COCO-Keypoints/middle_down_wai_cg1.yaml"
     cfg.merge_from_file(config_file)
-    cfg.DATASETS.TRAIN = ("middle_up_nei_train",)
-    # cfg.DATASETS.TEST = ("middle_up_nei_test",)  # no metrics implemented for this dataset
+    cfg.DATASETS.TRAIN = ("middle_down_wai_train",)
+    # cfg.DATASETS.TEST = ("middle_down_wai_test",)  # no metrics implemented for this dataset
     cfg.DATASETS.TEST = ()  # no metrics implemented for this dataset
  
-    cfg.OUTPUT_DIR = "./output/2023-02-07-vis01"
+    cfg.OUTPUT_DIR = "./output/2023-02-27-vis01"
     os.makedirs(cfg.OUTPUT_DIR,exist_ok = True)
     dst_config_file = os.path.join(cfg.OUTPUT_DIR,os.path.basename(config_file))
     shutil.copyfile(config_file,dst_config_file)
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     #     logging.info(f"{dst_config_file} saved")
     trainer = KeypointTrainer(cfg)
 
-    trainer.resume_or_load(resume=False)
+    trainer.resume_or_load(resume=True)
     if cfg.TEST.AUG.ENABLED:
         trainer.register_hooks(
             [hooks.EvalHook(0, lambda: trainer.test_with_TTA(cfg, trainer.model))]

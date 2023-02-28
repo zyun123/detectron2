@@ -239,6 +239,7 @@ class ROIPooler(nn.Module):
         )
         if len(box_lists) == 0:
             return _create_zeros(None, x[0].shape[1], *self.output_size, x[0])
+            # return _create_zeros(None, x[0].shape[1], 7,7, x[0])   #在导出script 的时候需要将outputsize 写成固定数
 
         pooler_fmt_boxes = convert_boxes_to_pooler_format(box_lists)
 

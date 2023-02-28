@@ -64,14 +64,14 @@ def export_caffe2_tracing(cfg, torch_model, inputs):
 def export_scripting(torch_model):
     assert TORCH_VERSION >= (1, 8)
     fields = {
-        # "proposal_boxes": Boxes,
-        # "objectness_logits": Tensor,
+        "proposal_boxes": Boxes,
+        "objectness_logits": Tensor,
         "pred_boxes": Boxes,
         "scores": Tensor,
         "pred_classes": Tensor,
-        # "pred_masks": Tensor,
+        "pred_masks": Tensor,
         "pred_keypoints": torch.Tensor,
-        # "pred_keypoint_heatmaps": torch.Tensor,
+        "pred_keypoint_heatmaps": torch.Tensor,
     }
     assert args.format == "torchscript", "Scripting only supports torchscript format."
 
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     parser.add_argument("--config-file", default="configs/COCO-Keypoints/middle_up_nei.yaml", metavar="FILE", help="path to config file")
     parser.add_argument("--sample-image", default="", type=str, help="sample image for input")
     parser.add_argument("--run-eval", action="store_true")
-    parser.add_argument("--output",default = "./output", help="output directory for the converted model")
+    parser.add_argument("--output",default = "./output_model", help="output directory for the converted model")
     parser.add_argument(
         "opts",
         help="Modify config options using the command-line",
@@ -202,10 +202,11 @@ if __name__ == "__main__":
         nargs=argparse.REMAINDER,
     )
     args = parser.parse_args()
-    args.export_method = "caffe2_tracing"
-    args.format = "caffe2"
-    args.opts = ["MODEL.WEIGHTS","/911G/d2_models/care_models/middle_up_nei_jb362_it16_cgrec.pth"]
-    args.sample_image = "/911G/data/temp/20221229新加手托脚托新数据/精确标注362套middle_up_nei_changerec/test/m_up_nei_20221228151558270.jpg"
+    args.config_file = "configs/COCO-Keypoints/middle_up_nei_partial_leg.yaml"
+    args.export_method = "tracing"
+    args.format = "torchscript"
+    args.opts = ["MODEL.WEIGHTS","/911G/data/temp/20221229新加手托脚托新数据/小框/partial_leg_middle_up2.pth"]
+    args.sample_image = "/911G/data/temp/20221229新加手托脚托新数据/小框/middle_up_nei/test/m_up_nei_20221228151704636.jpg"
 
 
 

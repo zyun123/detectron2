@@ -8,9 +8,8 @@ import json
 import os
 import numpy as np
 
-img_dir = "/911G/mergeData/middle_down_wai（736套）更新/middle_down_wai"
-new_img_dir = "/911G/mergeData/middle_down_wai（736套）更新/middle_down_wai_trainrot90"
-# os.makedirs(new_img_dir,exist_ok=True)
+
+
 
 def rot90_img(img,clockwise = True):
     """
@@ -26,12 +25,12 @@ def rot90_img(img,clockwise = True):
 def chage_90_json(data_dict,clockwise = True):
     """
     clockwise: 为True时，图像顺时针旋转，对应的box和keypoint也要跟着旋转
-    """
+    # """
     img_height = data_dict['imageHeight']
     img_width = data_dict['imageWidth']
     for shape in data_dict['shapes']:
-        # if shape['label'] == 'person':
-        if False:
+        if shape['label'] == 'person':
+        # if False:
             tlx = shape['points'][0][0] #左上角x
             tly = shape['points'][0][1] #左上角y
             brx = shape['points'][1][0] #右下角x
@@ -67,17 +66,21 @@ def chage_90_json(data_dict,clockwise = True):
                 new_points.append(point)
             
             shape['points'] = new_points
+            
+    data_dict['imageHeight'] = img_width
+    data_dict['imageWidth'] = img_height
     return data_dict
 
 
 
 
 if __name__ == "__main__":
-    img_dir = "/911G/mergeData/middle_down_wai（736套）更新/middle_down_wai"
-    new_img_dir = "/911G/mergeData/middle_down_wai（736套）更新/middle_down_wai_trainrot90"
-
+    img_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec_yolo/test"
+    new_img_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec_yolo/test_rotate90"
+    os.makedirs(new_img_dir,exist_ok=True)
     #设定旋转方向
-    clockwise = True  #True表示顺时针
+    clockwise = False  #False 逆时针
+    # clockwise = True  #True表示顺时针
 
     os.makedirs(new_img_dir,exist_ok=True)
     for img in os.listdir(img_dir):

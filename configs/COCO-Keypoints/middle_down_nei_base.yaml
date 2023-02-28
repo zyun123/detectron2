@@ -1,8 +1,8 @@
 DATALOADER:
   NUM_WORKERS: 4
 DATASETS:
-  TEST: ('middle_down_wai_test',)
-  TRAIN: ('middle_down_wai_train',)
+  TEST: ('middle_down_nei_test',)
+  TRAIN: ('middle_down_nei_train',)
 INPUT:
   MAX_SIZE_TEST: 1280
   MAX_SIZE_TRAIN: 1280
@@ -18,8 +18,8 @@ MODEL:
   RESNETS:
     DEPTH: 50
   ROI_KEYPOINT_HEAD:
-    #全经络版本是90个点，调理版本是56
-    NUM_KEYPOINTS: 56
+
+    NUM_KEYPOINTS: 26
   WEIGHTS: /mnt/dlData/samples/models/model_final_04e291keypoints_50.pkl
 OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
 SOLVER:

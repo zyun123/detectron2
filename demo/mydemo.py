@@ -21,7 +21,7 @@ from detectron2.data.catalog import MetadataCatalog
 from keypoints_names import *
 # from detectron2 import COCO_PERSON_KEYPOINT_NAMES_UP
 # from detectron2 import *
-from save_kp_json import save_predictions_to_json,replace_jsfile_box
+from save_kp_json import save_predictions_to_json,replace_jsfile_box,merge_pred_to_other_json
 WINDOW_NAME = "kp detections"
 
 def setup_cfg(args,kp_use_mean_std,kp_names_key):
@@ -108,12 +108,12 @@ if __name__ == "__main__":
     logger.info("Arguments: " + str(args))
 
     #middle_down_wai  包含头部56个点
-    # kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
-    # kp_rules_down = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
-
-    #middle_down_wai  全经络模型包含90个点
-    kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN
+    kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
     kp_rules_down = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
+
+    #middle_down_nei 28个点
+    # kp_names_down = COCO_PERSON_KEYPOINT_NAMES_DOWN_NEI
+    # kp_rules_down = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
 
     #middle_up_nei 有肺经  90个点
     # kp_names_up = COCO_PERSON_KEYPOINT_NAMES_UP
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     kp_names = kp_name_rule_dict[kp_names_key]["kp_names"]
     kp_rules = kp_name_rule_dict[kp_names_key]["kp_rules"]
     metadata = {
-            "thing_classes": ["person"],
+            "thing_classes": ["leg"],
             "keypoint_names": kp_names,
             "keypoint_connection_rules": kp_rules,
         }
@@ -194,6 +194,9 @@ if __name__ == "__main__":
             print("predict use time :##############",time1-start_time)
             #---------------test-process keypoints--测试对称性--------------------------------
             if args.save_json:
+                keypoints = predictions['instances'].pred_keypoints.squeeze().cpu().numpy().tolist()
+                if len(keypoints) == 0:
+                    continue
                 json_path = path.replace("jpg","json")
 
                 #与标注中途报错的断开  可以吧注释打开
@@ -212,7 +215,13 @@ if __name__ == "__main__":
                 if replace_box:
                     replace_jsfile_box(predictions,js_file)
                 else:
+                    #正常的保存预测内容到json文件
                     save_predictions_to_json(predictions,new_kp_names,path,h_flip)
+
+                    #合并预测内容和原有的标注内容
+                    # merge_pred_to_other_json(predictions,kp_names,origin_json_path=json_path)
+                    # pass
+
 
             keypoints = predictions['instances'].pred_keypoints.squeeze().cpu().numpy().tolist()
             # ret = main_reprocess(keypoints,os.path.basename(cfg.MODEL.WEIGHTS)[:-4])

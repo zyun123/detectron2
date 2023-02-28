@@ -5,7 +5,15 @@ __all__ = ["COCO_PERSON_KEYPOINT_NAMES_DOWN","KEYPOINT_CONNECTION_RULES_DOWN",
             "COCO_PERSON_KEYPOINT_NAMES_UP","KEYPOINT_CONNECTION_RULES_UP",
             "COCO_PERSON_KEYPOINT_NAMES_LEFT_DOWN","KEYPOINT_CONNECTION_RULES_LEFT_DOWN",
             "COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN","KEYPOINT_CONNECTION_RULES_HEAD_MIDDLE_DOWN",
-            "KEYPOINT_CONNECTION_RULES_WHOLE_DOWN"]
+            "KEYPOINT_CONNECTION_RULES_WHOLE_DOWN","COCO_PERSON_KEYPOINT_NAMES_DOWN_NEI"]
+
+#  26个点 middle_down_nei
+COCO_PERSON_KEYPOINT_NAMES_DOWN_NEI = ['R-shen-1', 'R-shen-2', 'R-shen-3', 'R-shen-4', 'R-shen-5',
+                           'R-shen-6', 'R-shen-7', 'R-shen-8', 'R-shen-9', 'R-shen-10', 'R-shen-11', 'R-shen-12','R-shen-13',
+                           'L-shen-1', 'L-shen-2', 'L-shen-3', 'L-shen-4', 'L-shen-5',
+                           'L-shen-6', 'L-shen-7', 'L-shen-8', 'L-shen-9', 'L-shen-10', 'L-shen-11', 'L-shen-12', 'L-shen-13'] 
+
+
 
 
 #全经络版本84个点            
@@ -23,37 +31,37 @@ __all__ = ["COCO_PERSON_KEYPOINT_NAMES_DOWN","KEYPOINT_CONNECTION_RULES_DOWN",
 #                             'R-wei-29', 'R-wei-30','L-dan-26','L-dan-51','L-dan-52','R-dan-26','R-dan-51','R-dan-52']
 
 
-#全经络版本  90个点                          
-COCO_PERSON_KEYPOINT_NAMES_DOWN = ['R-dachang-1','R-dachang-2', 'R-dachang-3','R-dachang-4','R-dachang-5',
-'R-dachang-6','R-dachang-20','R-dachang-7','R-dachang-8',
-    'L-dachang-1','L-dachang-2','L-dachang-3','L-dachang-4','L-dachang-5','L-dachang-6','L-dachang-20',
-    'L-dachang-7','L-dachang-8','L-sanjiao-1','L-sanjiao-2', 'L-sanjiao-3','L-sanjiao-4','L-sanjiao-5',
-    'L-sanjiao-6','L-sanjiao-7','R-sanjiao-1','R-sanjiao-2', 'R-sanjiao-3','R-sanjiao-4','R-sanjiao-5',
-    'R-sanjiao-6','R-sanjiao-7','L-xiaochang-1', 'L-xiaochang-2','L-xiaochang-3','L-xiaochang-4','L-xiaochang-20','L-xiaochang-5',
-    'L-xiaochang-6','L-xiaochang-7','L-xiaochang-8','L-xiaochang-9','L-xiaochang-10',
-    'L-xiaochang-11', 'L-xiaochang-12',
-    'R-xiaochang-1', 'R-xiaochang-2','R-xiaochang-3','R-xiaochang-4','R-xiaochang-20','R-xiaochang-5',
-    'R-xiaochang-6','R-xiaochang-7','R-xiaochang-8','R-xiaochang-9','R-xiaochang-10',
-    'R-xiaochang-11', 'R-xiaochang-12','L-pangguang-9','L-pangguang-10', 'L-pangguang-11','L-pangguang-12','L-pangguang-13',
-    'L-pangguang-14','L-pangguang-15', 'L-pangguang-16','L-pangguang-17','L-pangguang-18',
-    'L-pangguang-19','L-pangguang-20', 'L-pangguang-21','L-pangguang-22','L-pangguang-23',
-    'L-pangguang-24','R-pangguang-9','R-pangguang-10', 
-    'R-pangguang-11','R-pangguang-12','R-pangguang-13',
-    'R-pangguang-14','R-pangguang-15', 'R-pangguang-16','R-pangguang-17','R-pangguang-18',
-    'R-pangguang-19','R-pangguang-20', 'R-pangguang-21','R-pangguang-22','R-pangguang-23',
-    'R-pangguang-24']    
+#全经络版本  90个点   middle_down_wai                     
+# COCO_PERSON_KEYPOINT_NAMES_DOWN = ['R-dachang-1','R-dachang-2', 'R-dachang-3','R-dachang-4','R-dachang-5',
+# 'R-dachang-6','R-dachang-20','R-dachang-7','R-dachang-8',
+#     'L-dachang-1','L-dachang-2','L-dachang-3','L-dachang-4','L-dachang-5','L-dachang-6','L-dachang-20',
+#     'L-dachang-7','L-dachang-8','L-sanjiao-1','L-sanjiao-2', 'L-sanjiao-3','L-sanjiao-4','L-sanjiao-5',
+#     'L-sanjiao-6','L-sanjiao-7','R-sanjiao-1','R-sanjiao-2', 'R-sanjiao-3','R-sanjiao-4','R-sanjiao-5',
+#     'R-sanjiao-6','R-sanjiao-7','L-xiaochang-1', 'L-xiaochang-2','L-xiaochang-3','L-xiaochang-4','L-xiaochang-20','L-xiaochang-5',
+#     'L-xiaochang-6','L-xiaochang-7','L-xiaochang-8','L-xiaochang-9','L-xiaochang-10',
+#     'L-xiaochang-11', 'L-xiaochang-12',
+#     'R-xiaochang-1', 'R-xiaochang-2','R-xiaochang-3','R-xiaochang-4','R-xiaochang-20','R-xiaochang-5',
+#     'R-xiaochang-6','R-xiaochang-7','R-xiaochang-8','R-xiaochang-9','R-xiaochang-10',
+#     'R-xiaochang-11', 'R-xiaochang-12','L-pangguang-9','L-pangguang-10', 'L-pangguang-11','L-pangguang-12','L-pangguang-13',
+#     'L-pangguang-14','L-pangguang-15', 'L-pangguang-16','L-pangguang-17','L-pangguang-18',
+#     'L-pangguang-19','L-pangguang-20', 'L-pangguang-21','L-pangguang-22','L-pangguang-23',
+#     'L-pangguang-24','R-pangguang-9','R-pangguang-10', 
+#     'R-pangguang-11','R-pangguang-12','R-pangguang-13',
+#     'R-pangguang-14','R-pangguang-15', 'R-pangguang-16','R-pangguang-17','R-pangguang-18',
+#     'R-pangguang-19','R-pangguang-20', 'R-pangguang-21','R-pangguang-22','R-pangguang-23',
+#     'R-pangguang-24']    
 #                     
-# COCO_PERSON_KEYPOINT_NAMES_DOWN = ['L-sanjiao-1', 'L-sanjiao-2', 'L-sanjiao-3', 'L-sanjiao-4', 'L-sanjiao-5',
-#                 'L-sanjiao-6', 'L-sanjiao-7', 'L-sanjiao-8', 'L-sanjiao-9', 'R-sanjiao-1', 'R-sanjiao-2',
-#                  'R-sanjiao-3', 'R-sanjiao-4', 'R-sanjiao-5','R-sanjiao-6', 'R-sanjiao-7', 'R-sanjiao-8', 'R-sanjiao-9',
-#                 'L-pangguang-9', 'L-pangguang-10', 'L-pangguang-11', 'L-pangguang-12', 'L-pangguang-13',
-#                 'L-pangguang-14', 'L-pangguang-15', 'L-pangguang-16', 'L-pangguang-17', 'L-pangguang-18',
-#                 'L-pangguang-19', 'L-pangguang-20', 'L-pangguang-21', 'L-pangguang-22', 'L-pangguang-23',
-#                 'L-pangguang-24', 'R-pangguang-9', 'R-pangguang-10',
-#                 'R-pangguang-11', 'R-pangguang-12', 'R-pangguang-13',
-#                 'R-pangguang-14', 'R-pangguang-15', 'R-pangguang-16', 'R-pangguang-17', 'R-pangguang-18',
-#                 'R-pangguang-19', 'R-pangguang-20', 'R-pangguang-21', 'R-pangguang-22', 'R-pangguang-23',
-#                 'R-pangguang-24']
+COCO_PERSON_KEYPOINT_NAMES_DOWN = ['L-sanjiao-1', 'L-sanjiao-2', 'L-sanjiao-3', 'L-sanjiao-4', 'L-sanjiao-5',
+                'L-sanjiao-6', 'L-sanjiao-7', 'L-sanjiao-8', 'L-sanjiao-9', 'R-sanjiao-1', 'R-sanjiao-2',
+                 'R-sanjiao-3', 'R-sanjiao-4', 'R-sanjiao-5','R-sanjiao-6', 'R-sanjiao-7', 'R-sanjiao-8', 'R-sanjiao-9',
+                'L-pangguang-9', 'L-pangguang-10', 'L-pangguang-11', 'L-pangguang-12', 'L-pangguang-13',
+                'L-pangguang-14', 'L-pangguang-15', 'L-pangguang-16', 'L-pangguang-17', 'L-pangguang-18',
+                'L-pangguang-19', 'L-pangguang-20', 'L-pangguang-21', 'L-pangguang-22', 'L-pangguang-23',
+                'L-pangguang-24', 'R-pangguang-9', 'R-pangguang-10',
+                'R-pangguang-11', 'R-pangguang-12', 'R-pangguang-13',
+                'R-pangguang-14', 'R-pangguang-15', 'R-pangguang-16', 'R-pangguang-17', 'R-pangguang-18',
+                'R-pangguang-19', 'R-pangguang-20', 'R-pangguang-21', 'R-pangguang-22', 'R-pangguang-23',
+                'R-pangguang-24']
 
 
 # #加肺经
@@ -287,6 +295,75 @@ KEYPOINT_CONNECTION_RULES_HEAD_MIDDLE_DOWN = [
 
 
 KEYPOINT_CONNECTION_RULES_WHOLE_DOWN = [
+        #大肠经 景泰蓝
+        ('R-dachang-1', 'R-dachang-2', (39,117,182)),
+        ('R-dachang-2', 'R-dachang-3', (39,117,182)),
+        ('R-dachang-3', 'R-dachang-4', (39,117,182)),
+        ('R-dachang-4', 'R-dachang-5', (39,117,182)),
+        ('R-dachang-5', 'R-dachang-6', (39,117,182)),
+        ('R-dachang-6', 'R-dachang-20', (39,117,182)),
+        ('R-dachang-20', 'R-dachang-7', (39,117,182)),
+        ('R-dachang-7', 'R-dachang-8', (39,117,182)),
+        ('L-dachang-1', 'L-dachang-2', (39,117,182)),
+        ('L-dachang-2', 'L-dachang-3', (39,117,182)),
+        ('L-dachang-3', 'L-dachang-4', (39,117,182)),
+        ('L-dachang-4', 'L-dachang-5', (39,117,182)),
+        ('L-dachang-5', 'L-dachang-6', (39,117,182)),
+        ('L-dachang-6', 'L-dachang-20', (39,117,182)),
+        ('L-dachang-20', 'L-dachang-7', (39,117,182)),
+        ('L-dachang-7', 'L-dachang-8', (39,117,182)),
+
+        #小肠  油菜花黄
+        ('L-xiaochang-1', 'L-dachang-2', (251,218,65)),
+        ('L-xiaochang-2', 'L-dachang-3', (251,218,65)),
+        ('L-xiaochang-3', 'L-dachang-4', (251,218,65)),
+        ('L-xiaochang-4', 'L-dachang-20', (251,218,65)),
+        ('L-xiaochang-20', 'L-dachang-5', (251,218,65)),
+        ('L-xiaochang-5', 'L-dachang-6', (251,218,65)),
+        ('L-xiaochang-6', 'L-dachang-7', (251,218,65)),
+        ('L-xiaochang-7', 'L-dachang-8', (251,218,65)),
+        ('L-xiaochang-8', 'L-dachang-9', (251,218,65)),
+        ('L-xiaochang-9', 'L-dachang-10', (251,218,65)),
+        ('L-xiaochang-10', 'L-dachang-11', (251,218,65)),
+        ('L-xiaochang-11', 'L-dachang-12', (251,218,65)),
+        ('R-xiaochang-1', 'R-dachang-2', (251,218,65)),
+        ('R-xiaochang-2', 'R-dachang-3', (251,218,65)),
+        ('R-xiaochang-3', 'R-dachang-4', (251,218,65)),
+        ('R-xiaochang-4', 'R-dachang-20', (251,218,65)),
+        ('R-xiaochang-20', 'R-dachang-5', (251,218,65)),
+        ('R-xiaochang-5', 'R-dachang-6', (251,218,65)),
+        ('R-xiaochang-6', 'R-dachang-7', (251,218,65)),
+        ('R-xiaochang-7', 'R-dachang-8', (251,218,65)),
+        ('R-xiaochang-8', 'R-dachang-9', (251,218,65)),
+        ('R-xiaochang-9', 'R-dachang-10', (251,218,65)),
+        ('R-xiaochang-10', 'R-dachang-11', (251,218,65)),
+        ('R-xiaochang-11', 'R-dachang-12', (251,218,65)),
+
+        #肾经 下  鲸鱼灰
+        ('R-shen-1', 'R-shen-2', (71,81,100)),
+        ('R-shen-2', 'R-shen-3', (71,81,100)),
+        ('R-shen-3', 'R-shen-4', (71,81,100)),
+        ('R-shen-4', 'R-shen-5', (71,81,100)),
+        ('R-shen-5', 'R-shen-6', (71,81,100)),
+        ('R-shen-6', 'R-shen-7', (71,81,100)),
+        ('R-shen-7', 'R-shen-8', (71,81,100)),
+        ('R-shen-8', 'R-shen-9', (71,81,100)),
+        ('R-shen-9', 'R-shen-10', (71,81,100)),
+        ('R-shen-10', 'R-shen-11', (71,81,100)),
+        ('R-shen-11', 'R-shen-12', (71,81,100)),
+        ('R-shen-12', 'R-shen-13', (71,81,100)),
+        ('L-shen-1', 'L-shen-2', (71,81,100)),
+        ('L-shen-2', 'L-shen-3', (71,81,100)),
+        ('L-shen-3', 'L-shen-4', (71,81,100)),
+        ('L-shen-4', 'L-shen-5', (71,81,100)),
+        ('L-shen-5', 'L-shen-6', (71,81,100)),
+        ('L-shen-6', 'L-shen-7', (71,81,100)),
+        ('L-shen-7', 'L-shen-8', (71,81,100)),
+        ('L-shen-8', 'L-shen-9', (71,81,100)),
+        ('L-shen-9', 'L-shen-10', (71,81,100)),
+        ('L-shen-10', 'L-shen-11', (71,81,100)),
+        ('L-shen-11', 'L-shen-12', (71,81,100)),
+        ('L-shen-12', 'L-shen-13', (71,81,100)),
         # sanjiao
         ('R-sanjiao-1', 'R-sanjiao-2', (255, 0 , 255)),
         ('R-sanjiao-2', 'R-sanjiao-3', (255, 0 , 255)),

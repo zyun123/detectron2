@@ -99,7 +99,7 @@ class Matcher(object):
             match_labels[low_high] = l
 
         if self.allow_low_quality_matches:
-            self.set_low_quality_matches_(match_labels, match_quality_matrix)
+            self.set_low_quality_matches_(match_labels, match_quality_matrix) #match_labels:里面的元素只有-1，0，1  ，match_quality_matrix 表示anchor和git的iou
 
         return matches, match_labels
 

@@ -865,8 +865,8 @@ class StandardROIHeads(ROIHeads):
 
         if self.training:
             # head is only trained on positive proposals with >=1 visible keypoints.
-            instances, _ = select_foreground_proposals(instances, self.num_classes)
-            instances = select_proposals_with_visible_keypoints(instances)
+            instances, _ = select_foreground_proposals(instances, self.num_classes)  #选择前景
+            instances = select_proposals_with_visible_keypoints(instances)   #根据proposal 对应的gtkp，是否在预测框内，来选取proposal box
 
         if self.keypoint_pooler is not None:
             features = [features[f] for f in self.keypoint_in_features]
