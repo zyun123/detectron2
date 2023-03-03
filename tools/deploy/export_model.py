@@ -55,7 +55,7 @@ def export_caffe2_tracing(cfg, torch_model, inputs):
         onnx.save(onnx_model, os.path.join(args.output, "model.onnx"))
     elif args.format == "torchscript":
         ts_model = tracer.export_torchscript()
-        with PathManager.open(os.path.join(args.output, "model.ts"), "wb") as f:
+        with PathManager.open(os.path.join(args.output, args.output_model_name), "wb") as f:
             torch.jit.save(ts_model, f)
         dump_torchscript_IR(ts_model, args.output)
 
@@ -98,7 +98,7 @@ def export_scripting(torch_model):
                 return [i.get_fields() for i in instances]
 
     ts_model = scripting_with_instances(ScriptableAdapter(), fields)
-    with PathManager.open(os.path.join(args.output, "model.ts"), "wb") as f:
+    with PathManager.open(os.path.join(args.output, args.output_model_name), "wb") as f:
         torch.jit.save(ts_model, f)
     dump_torchscript_IR(ts_model, args.output)
     # TODO inference in Python now missing postprocessing glue code
@@ -125,7 +125,7 @@ def export_tracing(torch_model, inputs):
 
     if args.format == "torchscript":
         ts_model = torch.jit.trace(traceable_model, (image,))
-        with PathManager.open(os.path.join(args.output, "model.ts"), "wb") as f:
+        with PathManager.open(os.path.join(args.output, args.output_model_name), "wb") as f:
             torch.jit.save(ts_model, f)
         dump_torchscript_IR(ts_model, args.output)
     elif args.format == "onnx":
@@ -195,6 +195,7 @@ if __name__ == "__main__":
     parser.add_argument("--sample-image", default="", type=str, help="sample image for input")
     parser.add_argument("--run-eval", action="store_true")
     parser.add_argument("--output",default = "./output_model", help="output directory for the converted model")
+    parser.add_argument("--output-model-name",default = "./output_model", help="output directory for the converted model")
     parser.add_argument(
         "opts",
         help="Modify config options using the command-line",
@@ -202,10 +203,12 @@ if __name__ == "__main__":
         nargs=argparse.REMAINDER,
     )
     args = parser.parse_args()
-    args.config_file = "configs/COCO-Keypoints/middle_up_nei_partial_leg.yaml"
+    args.config_file = "configs/COCO-Keypoints/middle_up_nei_partial_left_hand.yaml"
     args.export_method = "tracing"
     args.format = "torchscript"
-    args.opts = ["MODEL.WEIGHTS","/911G/data/temp/20221229新加手托脚托新数据/小框/partial_leg_middle_up2.pth"]
+    args.opts = ["MODEL.WEIGHTS",
+                "/911G/data/temp/20221229新加手托脚托新数据/小框/partial_left_hand_up.pth"]
+    args.output_model_name = "partial_left_hand_up.ts"
     args.sample_image = "/911G/data/temp/20221229新加手托脚托新数据/小框/middle_up_nei/test/m_up_nei_20221228151704636.jpg"
 
 

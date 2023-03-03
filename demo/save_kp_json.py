@@ -124,7 +124,7 @@ def merge_pred_to_other_json(predictions,kp_names,origin_json_path):
 
     #需要挑出来的存在标注文件里的经络点  大肠经和小肠经
     # filter_kp_names = ['R-dachang-1','R-dachang-2', 'R-dachang-3','R-dachang-4','R-dachang-5','R-dachang-6','R-dachang-20','R-dachang-7','R-dachang-8','L-dachang-1','L-dachang-2','L-dachang-3','L-dachang-4','L-dachang-5','L-dachang-6','L-dachang-20','L-dachang-7','L-dachang-8','L-xiaochang-1', 'L-xiaochang-2','L-xiaochang-3','L-xiaochang-4','L-xiaochang-20','L-xiaochang-5','L-xiaochang-6','L-xiaochang-7','L-xiaochang-8','L-xiaochang-9','L-xiaochang-10','L-xiaochang-11', 'L-xiaochang-12','R-xiaochang-1', 'R-xiaochang-2','R-xiaochang-3','R-xiaochang-4','R-xiaochang-20','R-xiaochang-5','R-xiaochang-6','R-xiaochang-7','R-xiaochang-8','R-xiaochang-9','R-xiaochang-10','R-xiaochang-11', 'R-xiaochang-12']
-    filter_kp_names = ['R-shen-1', 'R-shen-2', 'R-shen-3', 'R-shen-4', 'R-shen-5','R-shen-6', 'R-shen-7', 'R-shen-8', 'R-shen-9', 'R-shen-10', 'R-shen-11', 'R-shen-12','R-shen-13','L-shen-1', 'L-shen-2', 'L-shen-3', 'L-shen-4', 'L-shen-5','L-shen-6', 'L-shen-7', 'L-shen-8', 'L-shen-9', 'L-shen-10', 'L-shen-11', 'L-shen-12', 'L-shen-13']
+    filter_kp_names = ['R-shen-1','R-shen-12','R-shen-13','L-shen-1','L-shen-12', 'L-shen-13']
     all_kpname_xy = {}
     for i, kp_name in enumerate(kp_names):
         all_kpname_xy[kp_name] = (keypoints[i][0], keypoints[i][1])

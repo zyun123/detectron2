@@ -29,8 +29,8 @@ def chage_90_json(data_dict,clockwise = True):
     img_height = data_dict['imageHeight']
     img_width = data_dict['imageWidth']
     for shape in data_dict['shapes']:
-        if shape['label'] == 'person':
-        # if False:
+        # if shape['label'] == 'person':
+        if False:
             tlx = shape['points'][0][0] #左上角x
             tly = shape['points'][0][1] #左上角y
             brx = shape['points'][1][0] #右下角x
@@ -75,8 +75,8 @@ def chage_90_json(data_dict,clockwise = True):
 
 
 if __name__ == "__main__":
-    img_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec_yolo/test"
-    new_img_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec_yolo/test_rotate90"
+    img_dir = "/911G/mergeData/0301经修改middle_down_wai/middle_down_wai_rotate90"
+    new_img_dir = "/911G/mergeData/0301经修改middle_down_wai/middle_down_wai_rotate90_rotate90"
     os.makedirs(new_img_dir,exist_ok=True)
     #设定旋转方向
     clockwise = False  #False 逆时针

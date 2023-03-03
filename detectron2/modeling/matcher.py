@@ -90,15 +90,15 @@ class Matcher(object):
 
         # match_quality_matrix is M (gt) x N (predicted)
         # Max over gt elements (dim 0) to find best gt candidate for each prediction
-        matched_vals, matches = match_quality_matrix.max(dim=0)
+        matched_vals, matches = match_quality_matrix.max(dim=0) #matched_vals 对应iou值，matches对应gtbox idx
 
         match_labels = matches.new_full(matches.size(), 1, dtype=torch.int8)
 
         for (l, low, high) in zip(self.labels, self.thresholds[:-1], self.thresholds[1:]):
-            low_high = (matched_vals >= low) & (matched_vals < high)
+            low_high = (matched_vals >= low) & (matched_vals < high)  #小于0.3的赋值0，0.3~0.7：-1， 大于0.7的 ：1
             match_labels[low_high] = l
 
-        if self.allow_low_quality_matches:
+        if self.allow_low_quality_matches: #将里面的iou最大的值对应的label设置为1
             self.set_low_quality_matches_(match_labels, match_quality_matrix) #match_labels:里面的元素只有-1，0，1  ，match_quality_matrix 表示anchor和git的iou
 
         return matches, match_labels

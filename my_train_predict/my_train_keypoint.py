@@ -16,8 +16,8 @@ from detectron2.utils.logger import setup_logger
 import os
 from detectron2.data.datasets import register_coco_instances
 from demo.keypoints_names import *
-kp_names = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
-kp_rules = KEYPOINT_CONNECTION_RULES_WHOLE_DOWN
+kp_names = MIDDLE_DOWN_CARE+HEAD_MIDDLE_DOWN
+kp_rules = RULES_WHOLE_DOWN
 # kp_names = COCO_PERSON_KEYPOINT_NAMES_UP
 # kp_rules = KEYPOINT_CONNECTION_RULES_UP
 metadata = {
@@ -106,7 +106,7 @@ class KeypointTrainer(DefaultTrainer):
 
 if __name__ == "__main__":
     cfg = get_cfg()
-    config_file = "configs/COCO-Keypoints/middle_down_wai_cg1.yaml"
+    config_file = "configs/COCO-Keypoints/middle_down_wai_base.yaml"
     cfg.merge_from_file(config_file)
     cfg.DATASETS.TRAIN = ("middle_down_wai_train",)
     # cfg.DATASETS.TEST = ("middle_down_wai_test",)  # no metrics implemented for this dataset

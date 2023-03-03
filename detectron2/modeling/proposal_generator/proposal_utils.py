@@ -76,7 +76,7 @@ def find_top_rpn_proposals(
         else:
             num_proposals_i = min(Hi_Wi_A, pre_nms_topk)
 
-        topk_scores_i, topk_idx = logits_i.topk(num_proposals_i, dim=1)
+        topk_scores_i, topk_idx = logits_i.topk(num_proposals_i, dim=1)  #通过分数来选取前2000个
 
         # each is N x topk
         topk_proposals_i = proposals_i[batch_idx[:, None], topk_idx]  # N x topk x 4
@@ -91,9 +91,9 @@ def find_top_rpn_proposals(
         )
 
     # 2. Concat all levels together
-    topk_scores = cat(topk_scores, dim=1)
-    topk_proposals = cat(topk_proposals, dim=1)
-    level_ids = cat(level_ids, dim=0)
+    topk_scores = cat(topk_scores, dim=1) #前景背景分数
+    topk_proposals = cat(topk_proposals, dim=1) #预测的框
+    level_ids = cat(level_ids, dim=0) #p2~p6的idx（0~4）
 
     # 3. For each image, run a per-level NMS, and choose topk results.
     results: List[Instances] = []
@@ -118,7 +118,7 @@ def find_top_rpn_proposals(
         if _is_tracing() or keep.sum().item() != len(boxes):
             boxes, scores_per_img, lvl = boxes[keep], scores_per_img[keep], lvl[keep]
 
-        keep = batched_nms(boxes.tensor, scores_per_img, lvl, nms_thresh)
+        keep = batched_nms(boxes.tensor, scores_per_img, lvl, nms_thresh) #这里将lvl加进去是 在p2~p6每个特征层上分别取nms
         # In Detectron1, there was different behavior during training vs. testing.
         # (https://github.com/facebookresearch/Detectron/issues/459)
         # During training, topk is over the proposals from *all* images in the training batch.

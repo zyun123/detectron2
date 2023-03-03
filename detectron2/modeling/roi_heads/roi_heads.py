@@ -201,9 +201,9 @@ class ROIHeads(torch.nn.Module):
         has_gt = gt_classes.numel() > 0
         # Get the corresponding GT for each proposal
         if has_gt:
-            gt_classes = gt_classes[matched_idxs]
+            gt_classes = gt_classes[matched_idxs] #matches_idxs 对应的是与bounding_box iou 最大的class_id
             # Label unmatched proposals (0 label from matcher) as background (label=num_classes)
-            gt_classes[matched_labels == 0] = self.num_classes
+            gt_classes[matched_labels == 0] = self.num_classes #iou值是0的 表示是背景，所以类别为num_classes，num_classes是类别总是，永远比类别索引大，所以可以用来表示背景
             # Label ignore proposals (-1 label)
             gt_classes[matched_labels == -1] = -1
         else:
@@ -266,7 +266,7 @@ class ROIHeads(torch.nn.Module):
             match_quality_matrix = pairwise_iou(
                 targets_per_image.gt_boxes, proposals_per_image.proposal_boxes
             )
-            matched_idxs, matched_labels = self.proposal_matcher(match_quality_matrix)
+            matched_idxs, matched_labels = self.proposal_matcher(match_quality_matrix) #matches_idxs:对应gtboxidx matched_labels:iou值
             sampled_idxs, gt_classes = self._sample_proposals(
                 matched_idxs, matched_labels, targets_per_image.gt_classes
             )

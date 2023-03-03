@@ -41,7 +41,7 @@ jl_pangguang = ['L-pangguang-9', 'L-pangguang-10', 'L-pangguang-11', 'L-pangguan
                     'R-pangguang-19', 'R-pangguang-20', 'R-pangguang-21', 'R-pangguang-22', 'R-pangguang-23',
                     'R-pangguang-24']
 
-jl_middle_down_wai =COCO_PERSON_KEYPOINT_NAMES_DOWN + COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
+jl_middle_down_wai =MIDDLE_DOWN_CARE + HEAD_MIDDLE_DOWN
 
 
 #模型对应的经络

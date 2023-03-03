@@ -335,8 +335,9 @@ class RPN(nn.Module):
             image_size_i: (h, w) for the i-th image
             gt_boxes_i: ground-truth boxes for i-th image
             """
-
-            match_quality_matrix = retry_if_cuda_oom(pairwise_iou)(gt_boxes_i, anchors) #将anchors和gtbox（1，4）作比较，gt或广播扩展
+            #将anchors和gtbox（1，4）作比较得到iou，gt会广播扩展
+            match_quality_matrix = retry_if_cuda_oom(pairwise_iou)(gt_boxes_i, anchors)
+            #matched_idxs 是一个anchor跟几个gtbox都有iou，取iou最大的gtbox id
             matched_idxs, gt_labels_i = retry_if_cuda_oom(self.anchor_matcher)(match_quality_matrix)
             # Matching is memory-expensive and may result in CPU tensors. But the result is small
             gt_labels_i = gt_labels_i.to(device=gt_boxes_i.device)
@@ -526,8 +527,8 @@ class RPN(nn.Module):
             B = anchors_i.tensor.size(1)
             pred_anchor_deltas_i = pred_anchor_deltas_i.reshape(-1, B)
             # Expand anchors to shape (N*Hi*Wi*A, B)
-            anchors_i = anchors_i.tensor.unsqueeze(0).expand(N, -1, -1).reshape(-1, B)
-            proposals_i = self.box2box_transform.apply_deltas(pred_anchor_deltas_i, anchors_i)
+            anchors_i = anchors_i.tensor.unsqueeze(0).expand(N, -1, -1).reshape(-1, B)  #扩展
+            proposals_i = self.box2box_transform.apply_deltas(pred_anchor_deltas_i, anchors_i) #bounding box
             # Append feature map proposals with shape (N, Hi*Wi*A, B)
             proposals.append(proposals_i.view(N, -1, B))
         return proposals

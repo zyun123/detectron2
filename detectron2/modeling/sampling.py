@@ -35,8 +35,8 @@ def subsample_labels(
         pos_idx, neg_idx (Tensor):
             1D vector of indices. The total length of both is `num_samples` or fewer.
     """
-    positive = nonzero_tuple((labels != -1) & (labels != bg_label))[0]
-    negative = nonzero_tuple(labels == bg_label)[0]
+    positive = nonzero_tuple((labels != -1) & (labels != bg_label))[0] #除了-1(废弃样本) 和int(num_classes)(背景) 其他的是正样本
+    negative = nonzero_tuple(labels == bg_label)[0] #负样本即背景
 
     num_pos = int(num_samples * positive_fraction)
     # protect against not enough positive examples
@@ -46,8 +46,10 @@ def subsample_labels(
     num_neg = min(negative.numel(), num_neg)
 
     # randomly select positive and negative examples
-    perm1 = torch.randperm(positive.numel(), device=positive.device)[:num_pos]
-    perm2 = torch.randperm(negative.numel(), device=negative.device)[:num_neg]
+    # perm1 = torch.randperm(positive.numel(), device=positive.device)[:num_pos]
+    # perm2 = torch.randperm(negative.numel(), device=negative.device)[:num_neg]
+    perm1 = torch.randperm(positive.numel())[:num_pos] #随机打乱
+    perm2 = torch.randperm(negative.numel())[:num_neg]
 
     pos_idx = positive[perm1]
     neg_idx = negative[perm2]
