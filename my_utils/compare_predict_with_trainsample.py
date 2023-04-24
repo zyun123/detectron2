@@ -6,13 +6,15 @@ import json
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-
-
-
+import glob
+# import torch
+import pandas as pd
 from demo.keypoints_names import *
-jl_names = COCO_PERSON_KEYPOINT_NAMES_DOWN+COCO_PERSON_KEYPOINT_NAMES_HEAD_MIDDLE_DOWN
-# jl_names = ['L-sanjiao-1', 'L-sanjiao-2', 'L-sanjiao-3', 'L-sanjiao-4', 'L-sanjiao-5',
-                # 'L-sanjiao-6', 'L-sanjiao-7', 'L-sanjiao-8', 'L-sanjiao-9']
+# jl_names = MIDDLE_UP_WITHOUT_FEI
+jl_names = ["L-xinbao-5","L-xinbao-6","L-xinbao-7","L-xinbao-8","L-xinbao-9",
+"R-xinbao-5","R-xinbao-6","R-xinbao-7","R-xinbao-8","R-xinbao-9",
+"L-wei-27", "L-wei-28", "L-wei-29", "L-wei-30","L-pi-1","L-pi-2","L-pi-3",
+"R-wei-27", "R-wei-28", "R-wei-29", "R-wei-30","R-pi-1","R-pi-2","R-pi-3"]
 
 
 def get_kp_with_instances(json_file,jl_names):
@@ -45,16 +47,21 @@ def compare_and_draw_diff(pred_kp, train_kp):
     return diff_x, diff_y , diff_dist
 
 if __name__ == "__main__":
-    pred_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/train"
-    train_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/train_predict_new"
+    pred_dir = "/911G/data/cure_images/上位机第一次识别图像/局部识别/局部图局部识别"
+    train_dir = "/911G/data/cure_images/上位机第一次识别图像/局部识别/整体预测"
+    save_dir = "/911G/data/cure_images/上位机第一次识别图像/局部识别/局部compare全局dist_diff"
+    os.makedirs(save_dir,exist_ok=True)
 
     files = []
     diff_xs = []
     diff_ys = []
     diff_dists = []
-
-    for file in os.listdir(pred_dir):
+    # files = []
+    len_file = len(glob.glob(os.path.join(pred_dir,"*.json")))
+    file_list = os.listdir(pred_dir)
+    for file in file_list:
         if file.endswith("json"):
+            # files.append(file)
             pred_js_file = os.path.join(pred_dir,file)
             train_js_file = os.path.join(train_dir,file)
 
@@ -66,36 +73,65 @@ if __name__ == "__main__":
             diff_xs.append(diff_x)
             diff_ys.append(diff_y)
             diff_dists.append(diff_dist)
-    diff_xs = np.abs(np.array(diff_xs))
-    diff_ys = np.abs(np.array(diff_ys))
-    diff_dists = np.array(diff_dists)
+    # diff_xs = np.abs(np.array(diff_xs))
+    # diff_ys = np.abs(np.array(diff_ys))
+    diff_xs = np.array(diff_xs)
+    diff_ys = np.array(diff_ys)
+    diff_dists = np.array(diff_dists).astype(int)
+
+    comp_diff = (diff_dists>5).astype(int)
+    sum1 = comp_diff.sum(axis = 1).reshape(-1,1)
+    
+    result = np.column_stack((comp_diff,sum1))
+
+    sum2 = result.sum(axis = 0).reshape(1,-1)
+    result = np.row_stack((result,sum2))
+    files.append("max_sum")
+    jl_names.append("max_sum")
+    data = pd.DataFrame(result,index = files,columns =jl_names)
+    with pd.ExcelWriter("compare_partial_global1.xlsx") as writer:
+        data.to_excel(writer,sheet_name = "diff_dists",index= True)
+
+
+
+
+
 
     
-    axis_x = range(0,320)
-    base_line = [5]*320
+    axis_x = range(0,len_file)
+    base_line1 = [5]*len_file
+    base_line2 = [-5]*len_file
     # plt.subplot()
-    plt.figure(figsize = (320,56),dpi = 60) #设置图形
+    # plt.figure(figsize = (320,56),dpi = 60) #设置图形
     for i in range(diff_xs.shape[1]):
-        # plt.figure(figsize = (320,10),dpi = 80) #设置图形
+        plt.figure(figsize = (len_file,10),dpi = 80) #设置图形
         # plt.subplot(56,1,i+1)
-        axis_y = diff_xs[:,i]
+        axis_y = diff_dists[:,i]
         # plt.plot(axis_x,(axis_y+i).tolist(),color=(np.random.randint(0,255),np.random.randint(0,255),np.random.randint(0,255)),label = jl_names[i],zorder = (i+1)*5)
         # plt.plot(axis_x,axis_y,label = jl_names[i])
         plt.plot(axis_x,axis_y)
-        plt.plot(axis_x,base_line)
+        plt.plot(axis_x,base_line1)
+        plt.plot(axis_x,base_line2)
 
 
 
-        plt.title(f"keyponts x_diff")
+        plt.title(f"keyponts dist_diff")
         plt.grid(alpha = 0.5)
-        plt.yticks(np.linspace(1,10,10))
-        # plt.xticks(np.linspace(1,320,320),files,rotation = 30)
-        plt.xticks(np.linspace(1,320,320))
-    plt.legend(jl_names)
-    plt.show()
-    save_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注320套middle_down_wai_change_rec/plt_images"
-    # plt.savefig(os.path.join(save_dir,f"{jl_names[i]}.jpg"))
-    plt.savefig(os.path.join(save_dir,"x_difff.jpg"))
+
+        #xy刻度
+        plt.yticks(np.linspace(-10,10,21))
+        plt.xticks(np.linspace(0,len_file,len_file),files,rotation = 75,ha = "right")
+        # plt.xticks(np.linspace(1,len_file,len_file))
+        # plt.xticks(np.linspace(1,len_file,len_file))
+
+        plt.legend([jl_names[i],"base_line:5"],"base_line:-5")
+        # plt.show()
+        plt.savefig(os.path.join(save_dir,f"{jl_names[i]}.jpg"))
+
+
+    # plt.legend(jl_names)
+    # plt.show()
+    # plt.savefig(os.path.join(save_dir,"x_difff.jpg"))
     print("compare down")
 
 

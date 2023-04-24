@@ -2,7 +2,7 @@
 import random
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data.catalog import MetadataCatalog, DatasetCatalog
-import pothole_data
+# import pothole_data
 import cv2
 from detectron2.engine import DefaultTrainer
 from detectron2.config import get_cfg
@@ -10,9 +10,13 @@ import os
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.visualizer import ColorMode
 
+from detectron2.data.datasets import register_coco_instances
+register_coco_instances("pothole_train", {}, "mydataset/roadscene_train.json", "mydataset/roadscene_train")
+register_coco_instances("pothole_test", {}, "mydataset/roadscene_val.json", "mydataset/roadscene_val")
+
 
 DATASET_STR = "pothole_train"
-IMAGE_STR = 'mydataset/train2017/img001.jpg'
+IMAGE_STR = 'mydataset/roadscene_train/img001.jpg'
 
 pothole_metadata = MetadataCatalog.get(DATASET_STR)
 MetadataCatalog.get(DATASET_STR).thing_classes = ["car", "dashedline", "midlane", "pothole", "rightlane"]
@@ -24,6 +28,7 @@ if __name__ == "__main__":
     cfg.merge_from_file(
         "configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
     )
+    cfg.OUTPUT_DIR = "output/2021-03-24"
     cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")
     print('loading from: {}'.format(cfg.MODEL.WEIGHTS))
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5   # set the testing threshold for this model

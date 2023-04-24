@@ -108,20 +108,30 @@ if __name__ == "__main__":
     logger.info("Arguments: " + str(args))
 
     #middle_down_wai  包含头部56个点
-    # kp_names_down = MIDDLE_DOWN_CARE+HEAD_MIDDLE_DOWN
-    # kp_rules_down = RULES_WHOLE_DOWN
+    kp_names_down = MIDDLE_DOWN_CARE+HEAD_MIDDLE_DOWN
+    kp_rules_down = RULES_WHOLE_DOWN
 
     #middle_down_wai  90个点
     # kp_names_down = MIDDLE_DOWN_ALL_JL
     # kp_rules_down = RULES_WHOLE_DOWN
 
     #middle_down_nei 28个点
-    kp_names_down = DOWN_NEI
-    kp_rules_down = RULES_WHOLE_DOWN
+    # kp_names_down = DOWN_NEI
+    # kp_rules_down = RULES_WHOLE_DOWN
+
+    #middle_up_nei  84个点  老版本
+    # kp_names_up = MIDDLE_UP_ALL_JL
+    # kp_rules_up = RULES_UP
+
+    #middle_up_nei 无肺经  74个点
+    # kp_names_up = MIDDLE_UP_WITHOUT_FEI
+    # kp_rules_up = RULES_UP
 
     #middle_up_nei 有肺经  90个点
-    # kp_names_up = COCO_PERSON_KEYPOINT_NAMES_UP
-    # kp_rules_up = KEYPOINT_CONNECTION_RULES_UP
+    # kp_names_up = MIDDLE_UP_WITH_FEI
+    # kp_rules_up = RULES_UP
+
+
 
     #middle_up_nei  partial leg 28个点
     # kp_names_up = PARTIAL_LEG_UP
@@ -129,9 +139,35 @@ if __name__ == "__main__":
 
     #middle_up_nei partial hand 8个点
     # kp_names_up = PARTIAL_LEFT_HAND_UP
-    kp_names_up = PARTIAL_RIGHT_HAND_UP
-    kp_rules_up = RULES_UP
+    # kp_names_up = PARTIAL_RIGHT_HAND_UP
+    # kp_rules_up = RULES_UP
+
+    #middle_up_nei left_hand 局部图局部识别 只有心包经 5个点 
+    # kp_names_up = UP_LEFT_HAND
+    # kp_rules_up = RULES_UP
     
+    # #middle_up_nei right_hand 局部图局部识别 只有心包经 5个点 
+    kp_names_up = UP_RIGHT_HAND
+    kp_rules_up = RULES_UP
+
+    #middle_up_nei left_foot 局部图局部识别  7个点 
+    # kp_names_up = UP_LEFT_FOOT
+    # kp_rules_up = RULES_UP
+
+    #middle_up_nei right_foot 局部图局部识别  7个点 
+    # kp_names_up = UP_RIGHT_FOOT
+    # kp_rules_up = RULES_UP
+
+    # #middle_down_wai  left hand 3个点
+    # kp_names_down = DOWN_LEFT_HAND
+    # kp_rules_down = RULES_WHOLE_DOWN
+
+    #middle_down_wai  left hand 3个点
+    # kp_names_down = DOWN_RIGHT_HAND
+    # kp_rules_down = RULES_WHOLE_DOWN
+
+
+
     kp_use_mean_std = {"down":{"mean":[140.871, 146.204, 151.602],"std":[43.098, 30.778, 25.503]},
                         "up":{"mean":[141.584,147.873,152.721],"std":[42.925,30.753,25.354]}}
 
@@ -143,7 +179,7 @@ if __name__ == "__main__":
     kp_names = kp_name_rule_dict[kp_names_key]["kp_names"]
     kp_rules = kp_name_rule_dict[kp_names_key]["kp_rules"]
     metadata = {
-            "thing_classes": ["leg"],
+            "thing_classes": ["person"],
             "keypoint_names": kp_names,
             "keypoint_connection_rules": kp_rules,
         }
@@ -196,6 +232,9 @@ if __name__ == "__main__":
             start_time = time.time()
             # cv2.imshow("test_image",img)
             predictions, visualized_output = demo.run_on_image(img,compare_predict_res=compare_predict_res,another_image=another_image)
+            cv2.imshow("pre_img",visualized_output.img)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
             if not predictions:
                 print("predict error")
                 continue
@@ -225,10 +264,10 @@ if __name__ == "__main__":
                     replace_jsfile_box(predictions,js_file)
                 else:
                     #正常的保存预测内容到json文件
-                    # save_predictions_to_json(predictions,new_kp_names,path,h_flip)
+                    save_predictions_to_json(predictions,new_kp_names,path,h_flip)
 
                     #合并预测内容和原有的标注内容
-                    merge_pred_to_other_json(predictions,kp_names,origin_json_path=json_path)
+                    # merge_pred_to_other_json(predictions,kp_names,origin_json_path=json_path)
                     # pass
 
 
@@ -265,7 +304,7 @@ if __name__ == "__main__":
             else:
                 cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
                 cv2.imshow(WINDOW_NAME, visualized_output.get_image()[:, :, ::-1])
-                if cv2.waitKey(1) == 27:
+                if cv2.waitKey(0) == 27:
                     break  # esc to quit
         with open("/home/zy/Desktop/predict_res.txt","a") as f:
             f.write("*"*45)

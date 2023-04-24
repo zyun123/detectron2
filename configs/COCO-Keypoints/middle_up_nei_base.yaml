@@ -24,23 +24,23 @@ MODEL:
   # PIXEL_MEAN: [141.584,147.873,152.721]
   # PIXEL_STD: [42.925,30.753,25.354]
   RPN:
-    IN_FEATURES: ["p3"]
+    IN_FEATURES: ["p5"]
   ROI_HEADS:
-    IN_FEATURES: ["p3"]
+    IN_FEATURES: ["p5"]
     BATCH_SIZE_PER_IMAGE: (128)
     IOU_THRESHOLDS: [0.7]
   ROI_BOX_HEAD:
     # Options are: "smooth_l1", "giou", "diou", "ciou"
     #在box_head 中精确回归
-    # BBOX_REG_LOSS_TYPE: "diou"
+    BBOX_REG_LOSS_TYPE: "ciou"
     POOLER_RESOLUTION: 28
     
 
   ROI_KEYPOINT_HEAD:
     #全经络版本84个点 ， 保健版74个点  ,保健版+肺经 90个点
-    NUM_KEYPOINTS: 90
+    NUM_KEYPOINTS: 74
     #roi align 输出尺寸
-    POOLER_RESOLUTION: [50,50]
+    POOLER_RESOLUTION: [58,58]
     NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: False
     LOSS_WEIGHT: 4.0
   ANCHOR_GENERATOR:

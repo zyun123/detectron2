@@ -203,13 +203,13 @@ if __name__ == "__main__":
         nargs=argparse.REMAINDER,
     )
     args = parser.parse_args()
-    args.config_file = "configs/COCO-Keypoints/middle_up_nei_partial_left_hand.yaml"
+    args.config_file = "configs/COCO-Keypoints/middle_down_wai_ts.yaml"
     args.export_method = "tracing"
     args.format = "torchscript"
     args.opts = ["MODEL.WEIGHTS",
-                "/911G/data/temp/20221229新加手托脚托新数据/小框/partial_left_hand_up.pth"]
-    args.output_model_name = "partial_left_hand_up.ts"
-    args.sample_image = "/911G/data/temp/20221229新加手托脚托新数据/小框/middle_up_nei/test/m_up_nei_20221228151704636.jpg"
+                "/911G/data/cure_images/上位机第一次识别图像/predict_err/model_final.pth"]
+    args.output_model_name = "/911G/data/cure_images/上位机第一次识别图像/predict_err/modelts_ts.ts"
+    args.sample_image = "/911G/data/cure_images/上位机第一次识别图像/predict_err/middle_down_wai_20221117165616383.jpg"
 
 
 

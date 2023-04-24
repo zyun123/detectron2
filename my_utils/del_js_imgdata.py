@@ -7,7 +7,6 @@ import numpy as np
 import glob
 
 
-
 def del_image_data(root_dir):
     """
     刪除所有json文件里的imagedata
@@ -44,13 +43,85 @@ def del_shape_with_jl_names(root_dir,filter_names):
         with open(jsfile,"w") as f:
             json.dump(data_dict,f,indent=4)
     
+def create_rec_with_kp(root_dir):
+    """
+    主要用于创建脚和手局部框
+    """
+    for jsfile in glob.glob(os.path.join(root_dir,"*.json")):
+        
+        xyxy = {}
+        rec_xy = []
+        with open(jsfile,"r") as f:
+            data_dict = json.load(f)
+        for shape in data_dict['shapes']:
+            xyxy[shape['label']] = shape['points'][0]
+        
+        leg_rec = [[xyxy['R-pi-1'][0]-20,
+                    xyxy['R-wei-30'][1]-20],
+                    [xyxy['L-pi-7'][0]+20,
+                    xyxy['L-wei-30'][1]+20]]
 
+        r_hand_rec = [[xyxy['R-xinbao-7'][0]-15,
+                    xyxy['R-fei-8'][1]-15],
+                    [xyxy['R-fei-6'][0]+15,
+                    xyxy['R-xinbao-9'][1]+25]]
+
+        l_hand_rec = [[xyxy['L-xinbao-7'][0]-15,
+                    xyxy['L-xinbao-9'][1]-25],
+                    [xyxy['L-fei-6'][0]+15,
+                    xyxy['L-fei-8'][1]+15]]
+
+        leg_shape = {"label": "leg",
+                        "points":leg_rec,
+                        "group_id": None,
+                        "shape_type":"rectangle",
+                        "flags":{}}
+        r_hand_shape = {"label": "hand",
+                        "points":r_hand_rec,
+                        "group_id": None,
+                        "shape_type":"rectangle",
+                        "flags":{}}
+        l_hand_shape = {"label": "hand",
+                        "points":l_hand_rec,
+                        "group_id": None,
+                        "shape_type":"rectangle",
+                        "flags":{}}
+
+        # print(data_dict["imagePath"])
+        data_dict['shapes'].append(leg_shape)
+        data_dict['shapes'].append(r_hand_shape)
+        data_dict['shapes'].append(l_hand_shape)
+        with open(jsfile,"w") as f:
+            json.dump(data_dict,f,indent=4)
+
+
+def change_person_rectangle(root_dir):
+    """
+    将人体框扩大一点
+    """
+    for jsfile in glob.glob(os.path.join(root_dir,"*.json")):
+        with open(jsfile,"r") as f:
+            data_dict = json.load(f)
+        for shape in data_dict['shapes']:
+            if shape['label'] == "person":
+                points = shape['points']
+                print("origin points:",points)
+                shape['points'] = [[points[0][0],points[0][1]],
+                                    [points[1][0]-20,points[1][1]]]
+                print("new points:",shape['points'])
+                break
+        with open(jsfile,"w") as f:
+            json.dump(data_dict,f,indent=4)
 
 
 
 if __name__ == "__main__":
-    root_dir = "/911G/mergeData/0301经修改middle_down_wai/middle_down_wai"
+    # root_dir = "/911G/mergeData/0301经修改middle_down_wai/middle_down_wai"
+    # root_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_multi_kp/train"
+    root_dir = "/911G/data/cure_images/上位机第一次识别图像/局部识别/局部图局部识别"
+
+    filter_names = ['person']
+    del_shape_with_jl_names(root_dir,filter_names = filter_names)
+    # create_rec_with_kp(root_dir)
     # del_image_data(root_dir) #删除图像数据
-    filter_names = ['L-pi-1', 'L-pi-2', 'L-pi-3', 'L-pi-4', 'L-pi-5', 'L-pi-6', 'L-pi-7', 'L-pi-8', 'L-pi-9', 'L-pi-10', 'L-pi-11', 'L-pi-12', 'R-pi-1', 'R-pi-2', 'R-pi-3', 'R-pi-4', 'R-pi-5', 'R-pi-6', 'R-pi-7', 'R-pi-8', 'R-pi-9', 'R-pi-10', 'R-pi-11', 'R-pi-12', 'R-xinbao-6', 'R-xinbao-7', 'R-xinbao-8', 'R-xinbao-9', 'L-xinbao-6', 'L-xinbao-7', 'L-xinbao-8', 'L-xinbao-9', 'L-wei-28', 'L-wei-29', 'L-wei-30', 'R-wei-28', 'R-wei-29', 'R-wei-30','L-fei-1', 'L-fei-2', 'L-fei-3', 'L-fei-4', 'L-fei-5', 'L-fei-6', 'L-fei-7', 'L-fei-8','R-fei-1', 'R-fei-2', 'R-fei-3', 'R-fei-4', 'R-fei-5', 'R-fei-6','R-fei-7', 'R-fei-8'] 
-    # del_shape_with_jl_names(root_dir,filter_names = filter_names)
-    del_image_data(root_dir)
+    # change_person_rectangle(root_dir)

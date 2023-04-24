@@ -23,12 +23,12 @@ MODEL:
   # PIXEL_MEAN: [141.584,147.873,152.721]
   # PIXEL_STD: [42.925,30.753,25.354]
   RPN:
-    IN_FEATURES: ["p4","p5"]
+    IN_FEATURES: ["p5"]
   ROI_HEADS:
-    IN_FEATURES: ["p4","p5"]
+    IN_FEATURES: ["p5"]
     BATCH_SIZE_PER_IMAGE: (128)
     #表示预测框与真实框的 IOU 需要不低于 0.7，才能被认为是一个正确的预测
-    IOU_THRESHOLDS: [0.7]
+    # IOU_THRESHOLDS: [0.7]
   ROI_BOX_HEAD:
     # Options are: "smooth_l1", "giou", "diou", "ciou"
     #在box_head 中精确回归
@@ -39,8 +39,8 @@ MODEL:
     NUM_KEYPOINTS: 90
     #roi align 输出尺寸
     POOLER_RESOLUTION: [14,28]
-    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: False
-    LOSS_WEIGHT: 4.0
+    # NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: False
+    # LOSS_WEIGHT: 4.0
   ANCHOR_GENERATOR:
     SIZES: [[541,541]]
     #ratios = 2.0: h/w = 2   ratios = 0.5: h/w = 0.5

@@ -49,7 +49,7 @@ def assign_boxes_to_levels(
             `self.min_level + i`).
     """
     box_sizes = torch.sqrt(cat([boxes.area() for boxes in box_lists]))
-    # Eqn.(1) in FPN paper
+    # Eqn.(1) in FPN paper  canonical_box_size 是索引为4的金字塔层的默认box 大小
     level_assignments = torch.floor(
         canonical_level + torch.log2(box_sizes / canonical_box_size + 1e-8)
     )
@@ -241,7 +241,7 @@ class ROIPooler(nn.Module):
             return _create_zeros(None, x[0].shape[1], *self.output_size, x[0])
             # return _create_zeros(None, x[0].shape[1], 7,7, x[0])   #在导出script 的时候需要将outputsize 写成固定数
 
-        pooler_fmt_boxes = convert_boxes_to_pooler_format(box_lists)
+        pooler_fmt_boxes = convert_boxes_to_pooler_format(box_lists) #将image_id 添加到最前面
 
         if num_level_assignments == 1:
             return self.level_poolers[0](x[0], pooler_fmt_boxes)

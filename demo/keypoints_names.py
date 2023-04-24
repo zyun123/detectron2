@@ -6,7 +6,8 @@ __all__ = ["MIDDLE_UP_ALL_JL","MIDDLE_DOWN_ALL_JL",
             "LEFT_DOWN","HEAD_MIDDLE_DOWN","DOWN_NEI",
             "PARTIAL_LEG_UP","PARTIAL_LEFT_HAND_UP","PARTIAL_RIGHT_HAND_UP",
             "RULES_WHOLE_DOWN","RULES_UP",
-            "RULES_LEFT_DOWN",]
+            "RULES_LEFT_DOWN",
+            "UP_LEFT_HAND","UP_RIGHT_HAND","UP_LEFT_FOOT","UP_RIGHT_FOOT","DOWN_LEFT_HAND","DOWN_RIGHT_HAND"]
 
 #  26个点 middle_down_nei
 DOWN_NEI = ['R-shen-1', 'R-shen-2', 'R-shen-3', 'R-shen-4', 'R-shen-5',
@@ -89,6 +90,14 @@ PARTIAL_LEG_UP = ['L-pi-1', 'L-pi-2', 'L-pi-3', 'L-pi-4','L-pi-5', 'L-pi-6', 'L-
 PARTIAL_LEFT_HAND_UP = ["L-xinbao-5","L-xinbao-6","L-xinbao-7","L-xinbao-8","L-xinbao-9","L-fei-6","L-fei-7","L-fei-8",]
 #局部右手
 PARTIAL_RIGHT_HAND_UP = ["R-xinbao-5","R-xinbao-6","R-xinbao-7","R-xinbao-8","R-xinbao-9","R-fei-6","R-fei-7","R-fei-8",]
+
+#局部图局部手
+UP_LEFT_HAND = ["L-xinbao-5","L-xinbao-6","L-xinbao-7","L-xinbao-8","L-xinbao-9"]
+UP_RIGHT_HAND = ["R-xinbao-5","R-xinbao-6","R-xinbao-7","R-xinbao-8","R-xinbao-9"]
+UP_LEFT_FOOT = ["L-wei-27", "L-wei-28", "L-wei-29", "L-wei-30","L-pi-1","L-pi-2","L-pi-3"]
+UP_RIGHT_FOOT = ["R-wei-27", "R-wei-28", "R-wei-29", "R-wei-30","R-pi-1","R-pi-2","R-pi-3"]
+DOWN_LEFT_HAND = ["L-sanjiao-1","L-sanjiao-2","L-sanjiao-3"]
+DOWN_RIGHT_HAND = ["R-sanjiao-1","R-sanjiao-2","R-sanjiao-3"]
 
 
 

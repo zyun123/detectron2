@@ -201,7 +201,7 @@ class ROIHeads(torch.nn.Module):
         has_gt = gt_classes.numel() > 0
         # Get the corresponding GT for each proposal
         if has_gt:
-            gt_classes = gt_classes[matched_idxs] #matches_idxs 对应的是与bounding_box iou 最大的class_id
+            gt_classes = gt_classes[matched_idxs] #matches_idxs 对应的是与bounding_box iou最大的  class_id
             # Label unmatched proposals (0 label from matcher) as background (label=num_classes)
             gt_classes[matched_labels == 0] = self.num_classes #iou值是0的 表示是背景，所以类别为num_classes，num_classes是类别总是，永远比类别索引大，所以可以用来表示背景
             # Label ignore proposals (-1 label)
@@ -269,7 +269,7 @@ class ROIHeads(torch.nn.Module):
             matched_idxs, matched_labels = self.proposal_matcher(match_quality_matrix) #matches_idxs:对应gtboxidx matched_labels:iou值
             sampled_idxs, gt_classes = self._sample_proposals(
                 matched_idxs, matched_labels, targets_per_image.gt_classes
-            )
+            ) #获取前景和背景的样本indx 和 对应的类别，一般前景样本本量较少
 
             # Set target attributes of the sampled proposals:
             proposals_per_image = proposals_per_image[sampled_idxs]
@@ -747,6 +747,8 @@ class StandardROIHeads(ROIHeads):
             pred_instances = self._forward_box(features, proposals)
             # During inference cascaded prediction is used: the mask and keypoints heads are only
             # applied to the top scoring box detections.
+            #70，111，1115，633
+            # pred_instances[0].pred_boxes.tensor[0] = torch.tensor([70,81,1115,603],dtype = torch.float32,device="cuda:0")
             pred_instances = self.forward_with_given_boxes(features, pred_instances)
             return pred_instances, {}
 

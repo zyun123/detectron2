@@ -52,18 +52,18 @@ def create_shapes(keypoints,box=None,kp_names=[],img_width=1280,h_flip=False):
 
 
 
-def save_predictions_to_json(predictions,kp_names,img_path,h_flip=False):
+def save_predictions_to_json(box_list,keypoints,kp_names,img_path,h_flip=False):
     """主程序
 
     Args:
         predictions (dict): predict 预测的结果 {"instance":Instance}  box = Instances.pred_boxes keypoints = Instances.pred_keypoints
         kp_names (list): 关键点的名字和顺序
     """
-    box_list = predictions["instances"].pred_boxes.tensor.cpu().numpy().tolist()
+    
     if len(box_list) == 0:
         return
     box = box_list[0]
-    keypoints = predictions["instances"].pred_keypoints.squeeze().cpu().numpy().tolist()
+    # keypoints = predictions["instances"].pred_keypoints.squeeze().cpu().numpy().tolist()
     js_path = img_path.replace("jpg","json") #json file save path
     imagePath = os.path.basename(img_path)
     
@@ -109,7 +109,7 @@ def replace_jsfile_box(predictions,js_file):
 
 
 
-def merge_pred_to_other_json(predictions,kp_names,origin_json_path):
+def merge_pred_to_other_json(keypoints,kp_names,origin_json_path):
     """主程序
 
     Args:
@@ -117,7 +117,7 @@ def merge_pred_to_other_json(predictions,kp_names,origin_json_path):
         kp_names (list): 关键点的名字和顺序
         将预测的信息取出大肠经，小肠经，放到原来的标注好的json文件，标注好的json文件里有三焦经和膀胱经
     """
-    keypoints = predictions["instances"].pred_keypoints.squeeze().cpu().numpy().tolist()  #预测的关键点
+    # keypoints = predictions["instances"].pred_keypoints.squeeze().cpu().numpy().tolist()  #预测的关键点
     assert len(keypoints) == len(kp_names),"关键点个数要和穴位名字个数一样"
     # origin_dir = ""  #标注的json文件所在的文件夹
     # origin_json_path = os.path.join(origin_dir,os.path.basename(json_path))
@@ -134,6 +134,7 @@ def merge_pred_to_other_json(predictions,kp_names,origin_json_path):
         kp = [all_kpname_xy[f_kp][0], all_kpname_xy[f_kp][1]]
         filter_keypoints.append(kp)
     shapes = create_shapes(filter_keypoints,kp_names = filter_kp_names)
+
 
     with open(origin_json_path,"r") as f:
         data_dict = json.load(f)

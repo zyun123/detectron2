@@ -1,13 +1,17 @@
 import random
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data.catalog import MetadataCatalog, DatasetCatalog
-import pothole_data
+# import pothole_data
 import cv2
 from detectron2.engine import DefaultTrainer
 from detectron2.config import get_cfg
 from detectron2.utils.logger import setup_logger
 import os
 setup_logger()
+from detectron2.data.datasets import register_coco_instances
+register_coco_instances("pothole_train", {}, "mydataset/roadscene_train.json", "mydataset/roadscene_train")
+register_coco_instances("pothole_test", {}, "mydataset/roadscene_val.json", "mydataset/roadscene_val")
+
 
 
 

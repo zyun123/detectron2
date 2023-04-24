@@ -7,7 +7,7 @@ import glob
 import PIL.Image
 from PIL import ImageDraw
 import logging
-from labelme.utils.buildKeypointNames import buildKeypointNames, drawKeypoints
+# from labelme.utils.buildKeypointNames import buildKeypointNames, drawKeypoints
 from pathlib import Path
 
 import cv2
@@ -142,7 +142,7 @@ class labelme2coco(object):
         #     cv2.circle(img, (int(x_coord), int(y_coord)),
         #                 3, (int(r), int(g), int(b)), -1)
         #     cv2.putText(img, AllKpNames[kid], (int(x_coord), int(y_coord)), 2, 1, (255, 255, 255) )
-        drawKeypoints(img, npkpts, AllKpNames)
+        # drawKeypoints(img, npkpts, AllKpNames)
         return img
 
     def build_bboxAnn(self, ann, bbox):
@@ -427,7 +427,7 @@ if __name__ == "__main__":
     jl_middle_up_nei_care = ['L-pi-1', 'L-pi-2', 'L-pi-3', 'L-pi-4',
                    'L-pi-5', 'L-pi-6', 'L-pi-7', 'L-pi-8','L-pi-9','L-pi-10','L-pi-11','L-pi-12', 
                    'R-pi-1', 'R-pi-2', 'R-pi-3', 'R-pi-4',
-                   'R-pi-5', 'R-pi-6', 'R-pi-7', 'R-pi-8','R-pi-9','R-pi-10','R-pi-11','R-pi-12']+jl_xingbao+jl_wei_middle+jl_fei
+                   'R-pi-5', 'R-pi-6', 'R-pi-7', 'R-pi-8','R-pi-9','R-pi-10','R-pi-11','R-pi-12']+jl_xingbao+jl_wei_middle
     # jl_middle_up_nei_care =  jl_xingbao +jl_wei_middle
     jl_middle_down_wai_care= ['L-sanjiao-1', 'L-sanjiao-2', 'L-sanjiao-3', 'L-sanjiao-4', 'L-sanjiao-5',
                   'L-sanjiao-6', 'L-sanjiao-7','L-sanjiao-8','L-sanjiao-9', 'R-sanjiao-1', 'R-sanjiao-2', 'R-sanjiao-3', 'R-sanjiao-4',
@@ -504,10 +504,10 @@ if __name__ == "__main__":
                      'R-wei-23','R-wei-24', 'R-wei-25', 'R-wei-26', 'R-wei-27']
 
 
-    baseDir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec_yolo/images/"
+    baseDir = "/911G/data/temp/20221229新加手托脚托新数据/20230311_最新修改/middle_up_nei/"
     EightModelList = [
-        [jl_yolo_kp, 'train'],
-        [jl_yolo_kp, 'val'],
+        [jl_middle_up_nei_care, 'train'],
+        [jl_middle_up_nei_care, 'test'],
         ]
 
     # # 生成手脚18个模型的数据集json文件

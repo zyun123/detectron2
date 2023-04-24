@@ -151,16 +151,20 @@ Usage:
   auto device = (*begin(module.buffers())).device();
 
   cv::Mat input_img = cv::imread(image_file, cv::IMREAD_COLOR);
+  // cv::cvtColor(input_img,input_img,cv::COLOR_BGR2RGB);
+  cv::imshow("image",input_img);
+  cv::waitKey(0);
+  cv::destroyAllWindows();
   auto inputs = get_inputs(export_method, input_img, device);
 
   // Run the network
-  for (int i = 0; i < 100; i++){
-    auto start_time = chrono::high_resolution_clock::now();
-    auto output = module.forward({inputs});
-    auto end_time = chrono::high_resolution_clock::now();
-    auto ms = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-    cout << "predict use: "<< ms * 1.0 / 1e3  << " ms" << endl;
-  }
+  // for (int i = 0; i < 100; i++){
+  //   auto start_time = chrono::high_resolution_clock::now();
+  //   auto output = module.forward({inputs});
+  //   auto end_time = chrono::high_resolution_clock::now();
+  //   auto ms = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+  //   cout << "predict use: "<< ms * 1.0 / 1e3  << " ms" << endl;
+  // }
   auto output = module.forward({inputs});
 
   if (device.is_cuda())
@@ -183,16 +187,16 @@ Usage:
 //        << ms * 1.0 / 1e6 / N_benchmark << " seconds" << endl;
 
 //   // Parse Mask R-CNN outputs
-//   auto rcnn_outputs = get_outputs(export_method, output);
+  auto rcnn_outputs = get_outputs(export_method, output);
 //   cout << "Number of detected objects: " << rcnn_outputs.num_instances()
 //        << endl;
 
-//   cout << "pred_boxes: " << rcnn_outputs.pred_boxes.toString() << " "
-//        << rcnn_outputs.pred_boxes.sizes() << endl;
-//   cout << "scores: " << rcnn_outputs.scores.toString() << " "
-//        << rcnn_outputs.scores.sizes() << endl;
-//   cout << "pred_classes: " << rcnn_outputs.pred_classes.toString() << " "
-//        << rcnn_outputs.pred_classes.sizes() << endl;
+  cout << "pred_boxes: " << rcnn_outputs.pred_boxes << " "
+       << rcnn_outputs.pred_boxes.sizes() << endl;
+  cout << "scores: " << rcnn_outputs.scores << " "
+       << rcnn_outputs.scores.sizes() << endl;
+  cout << "pred_classes: " << rcnn_outputs.pred_classes<< " "
+       << rcnn_outputs.pred_classes.sizes() << endl;
 //   cout << "pred_masks: " << rcnn_outputs.pred_masks.toString() << " "
 //        << rcnn_outputs.pred_masks.sizes() << endl;
 
