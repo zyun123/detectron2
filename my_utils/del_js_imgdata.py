@@ -113,15 +113,32 @@ def change_person_rectangle(root_dir):
         with open(jsfile,"w") as f:
             json.dump(data_dict,f,indent=4)
 
+def delete_keypoint(root_dir):
+    for jsfile in glob.glob(os.path.join(root_dir,"*.json")):
+        with open(jsfile,"r") as f:
+            data_dict = json.load(f)
+        new_shape = []
+        for shape in data_dict['shapes']:
+            if shape["shape_type"] == "rectangle":
+                new_shape.append(shape)
+        data_dict['shapes'] = new_shape
+        with open(jsfile,"w") as f:
+            json.dump(data_dict,f,indent=4)
+
+
+
+        
+
 
 
 if __name__ == "__main__":
     # root_dir = "/911G/mergeData/0301经修改middle_down_wai/middle_down_wai"
     # root_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_multi_kp/train"
-    root_dir = "/911G/data/cure_images/上位机第一次识别图像/局部识别/局部图局部识别"
+    root_dir = "/911G/data/cure_images/一楼拷贝数据/up_nei/middle_up_nei"
 
-    filter_names = ['person']
-    del_shape_with_jl_names(root_dir,filter_names = filter_names)
+    # filter_names = ['person']
+    # del_shape_with_jl_names(root_dir,filter_names = filter_names)
     # create_rec_with_kp(root_dir)
     # del_image_data(root_dir) #删除图像数据
     # change_person_rectangle(root_dir)
+    delete_keypoint(root_dir)

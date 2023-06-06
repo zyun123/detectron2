@@ -134,8 +134,8 @@ if __name__ == "__main__":
 
 
     #middle_up_nei  partial leg 28个点
-    # kp_names_up = PARTIAL_LEG_UP
-    # kp_rules_up = RULES_UP
+    kp_names_up = PARTIAL_LEG_UP
+    kp_rules_up = RULES_UP
 
     #middle_up_nei partial hand 8个点
     # kp_names_up = PARTIAL_LEFT_HAND_UP
@@ -147,8 +147,8 @@ if __name__ == "__main__":
     # kp_rules_up = RULES_UP
     
     # #middle_up_nei right_hand 局部图局部识别 只有心包经 5个点 
-    kp_names_up = UP_RIGHT_HAND
-    kp_rules_up = RULES_UP
+    # kp_names_up = UP_RIGHT_HAND
+    # kp_rules_up = RULES_UP
 
     #middle_up_nei left_foot 局部图局部识别  7个点 
     # kp_names_up = UP_LEFT_FOOT
@@ -232,9 +232,9 @@ if __name__ == "__main__":
             start_time = time.time()
             # cv2.imshow("test_image",img)
             predictions, visualized_output = demo.run_on_image(img,compare_predict_res=compare_predict_res,another_image=another_image)
-            cv2.imshow("pre_img",visualized_output.img)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            # cv2.imshow("pre_img",visualized_output.img)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
             if not predictions:
                 print("predict error")
                 continue
@@ -243,6 +243,8 @@ if __name__ == "__main__":
             #---------------test-process keypoints--测试对称性--------------------------------
             if args.save_json:
                 keypoints = predictions['instances'].pred_keypoints.squeeze().cpu().numpy().tolist()
+                box_list = predictions["instances"].pred_boxes.tensor.cpu().numpy().tolist()
+
                 if len(keypoints) == 0:
                     continue
                 json_path = path.replace("jpg","json")
@@ -264,10 +266,10 @@ if __name__ == "__main__":
                     replace_jsfile_box(predictions,js_file)
                 else:
                     #正常的保存预测内容到json文件
-                    save_predictions_to_json(predictions,new_kp_names,path,h_flip)
+                    # save_predictions_to_json(box_list,keypoints,new_kp_names,path,h_flip)
 
                     #合并预测内容和原有的标注内容
-                    # merge_pred_to_other_json(predictions,kp_names,origin_json_path=json_path)
+                    merge_pred_to_other_json(box_list,keypoints,kp_names,origin_json_path=json_path)
                     # pass
 
 
@@ -304,7 +306,8 @@ if __name__ == "__main__":
             else:
                 cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
                 cv2.imshow(WINDOW_NAME, visualized_output.get_image()[:, :, ::-1])
-                if cv2.waitKey(0) == 27:
+                # cv2.imwrite("/911G/data/cure_images/pred_error/left/l_crop_pred.jpg",visualized_output.get_image()[:, :, ::-1])
+                if cv2.waitKey(1) == 27:
                     break  # esc to quit
         with open("/home/zy/Desktop/predict_res.txt","a") as f:
             f.write("*"*45)

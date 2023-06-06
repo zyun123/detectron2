@@ -87,9 +87,9 @@ PARTIAL_LEG_UP = ['L-pi-1', 'L-pi-2', 'L-pi-3', 'L-pi-4','L-pi-5', 'L-pi-6', 'L-
                             'L-wei-24', 'L-wei-25', 'L-wei-26', 'L-wei-27', 'L-wei-28', 'L-wei-29', 'L-wei-30',
                             'R-wei-24', 'R-wei-25', 'R-wei-26', 'R-wei-27', 'R-wei-28', 'R-wei-29', 'R-wei-30']
 #局部左手
-PARTIAL_LEFT_HAND_UP = ["L-xinbao-5","L-xinbao-6","L-xinbao-7","L-xinbao-8","L-xinbao-9","L-fei-6","L-fei-7","L-fei-8",]
+PARTIAL_LEFT_HAND_UP = ["L-xinbao-5","L-xinbao-6","L-xinbao-7","L-xinbao-8","L-xinbao-9","L-fei-6","L-fei-7","L-fei-8"]
 #局部右手
-PARTIAL_RIGHT_HAND_UP = ["R-xinbao-5","R-xinbao-6","R-xinbao-7","R-xinbao-8","R-xinbao-9","R-fei-6","R-fei-7","R-fei-8",]
+PARTIAL_RIGHT_HAND_UP = ["R-xinbao-5","R-xinbao-6","R-xinbao-7","R-xinbao-8","R-xinbao-9","R-fei-6","R-fei-7","R-fei-8"]
 
 #局部图局部手
 UP_LEFT_HAND = ["L-xinbao-5","L-xinbao-6","L-xinbao-7","L-xinbao-8","L-xinbao-9"]
