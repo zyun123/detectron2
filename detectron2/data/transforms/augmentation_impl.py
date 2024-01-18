@@ -139,8 +139,9 @@ class ResizeShortestEdge(Augmentation):
     If `max_size` is reached, then downscale so that the longer edge does not exceed max_size.
     """
 
-    @torch.jit.unused
-    def __init__(
+    # @torch.jit.unused
+    # @torch.jit.script_if_tracing
+    def __init__( 
         self, short_edge_length, max_size=sys.maxsize, sample_style="range", interp=Image.BILINEAR
     ):
         """
@@ -164,7 +165,8 @@ class ResizeShortestEdge(Augmentation):
             )
         self._init(locals())
 
-    @torch.jit.unused
+    # @torch.jit.unused
+    # @torch.jit.script_if_tracing
     def get_transform(self, image):
         h, w = image.shape[:2]
         if self.is_range:

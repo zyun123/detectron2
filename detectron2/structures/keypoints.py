@@ -215,7 +215,7 @@ def heatmaps_to_keypoints(maps: torch.Tensor, rois: torch.Tensor) -> torch.Tenso
     # https://github.com/pytorch/pytorch/issues/44768
     maps = maps.detach()
     rois = rois.detach()
-    print("rois shape : ",rois.shape[0])
+    # print("rois shape : ",rois.shape[0])
     offset_x = rois[:, 0]
     offset_y = rois[:, 1]
 

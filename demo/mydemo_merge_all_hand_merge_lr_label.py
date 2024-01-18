@@ -111,95 +111,12 @@ if __name__ == "__main__":
     kp_names_down = MIDDLE_DOWN_CARE+HEAD_MIDDLE_DOWN
     kp_rules_down = RULES_WHOLE_DOWN
 
-    #middle_down_wai  90个点
-    # kp_names_down = MIDDLE_DOWN_ALL_JL
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_down_nei 28个点
-    # kp_names_down = DOWN_NEI
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_up_nei  84个点  老版本
-    # kp_names_up = MIDDLE_UP_ALL_JL
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei 无肺经  74个点
-    # kp_names_up = MIDDLE_UP_WITHOUT_FEI
-    # kp_rules_up = RULES_UP
+ 
 
     #middle_up_nei 有肺经  90个点
     kp_names_up = MIDDLE_UP_WITH_FEI
     kp_rules_up = RULES_UP
 
-
-
-    #middle_up_nei  partial leg 28个点
-    # kp_names_up = PARTIAL_LEG_UP
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei partial hand 8个点
-    # kp_names_up = PARTIAL_LEFT_HAND_UP
-    # kp_names_up = PARTIAL_RIGHT_HAND_UP
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei left_hand 局部图局部识别 只有心包经 5个点 
-    # kp_names_up = UP_LEFT_HAND
-    # kp_rules_up = RULES_UP
-    
-    # # #middle_up_nei right_hand 局部图局部识别 只有心包经 5个点 
-    # kp_names_up = UP_RIGHT_HAND
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei left_foot 局部图局部识别  7个点 
-    # kp_names_up = UP_LEFT_FOOT
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei right_foot 局部图局部识别  7个点 
-    # kp_names_up = UP_RIGHT_FOOT
-    # kp_rules_up = RULES_UP
-
-    # #middle_down_wai  left hand 3个点
-    # kp_names_down = DOWN_LEFT_HAND
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_down_wai  left hand 3个点
-    # kp_names_down = DOWN_RIGHT_HAND
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-
-
-    #全经络 局部模型 left_hand 局部图局部识别 心包经,肺经，心经 11个点 
-    # kp_names_up = ALLJL_UP_LEFT_HAND
-    # kp_rules_up = RULES_UP
-
-    #全经络 局部模型 right_hand 局部图局部识别 心包经,肺经，心经 11个点 
-    # kp_names_up = ALLJL_UP_RIGHT_HAND
-    # kp_rules_up = RULES_UP
-
-    #全经络 局部模型 right_hand 局部图局部识别 心包经,肺经，心经 11个点 
-    # kp_names_down = ALLJL_DOWN_LEFT_HAND
-    # kp_names_down = ALLJL_DOWN_RIGHT_HAND
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #全经络 局部模型 left_down_wai  right_foot  6个点
-    # kp_names_down = ALLJL_DOWN_RIGHT_FOOT
-    # kp_rules_down =RULES_WHOLE_DOWN
-
-    #全经络 局部模型 left_down_wai  right_head  35个点
-    # kp_names_down = ALLJL_DOWN_RIGHT_HEAD
-    # kp_rules_down =RULES_WHOLE_DOWN
-
-    #全经络 局部模型 head_down_wai top_head    11个点
-    # kp_names_down = ALLJL_TOP_HEAD
-    # kp_rules_down =RULES_WHOLE_DOWN
-
-    # #全经络 局部模型 left foot 局部图局部识别 胆经 肝经 4点 
-    # kp_names_up = ALLJL_UP_LEFT_FOOT
-    # kp_rules_up = RULES_UP
-
-    #全经络 局部模型 left up nei   face
-    # kp_names_up = ALLJL_UP_FACE
-    # kp_rules_up = RULES_UP
 
 
     kp_use_mean_std = {"down":{"mean":[140.871, 146.204, 151.602],"std":[43.098, 30.778, 25.503]},
@@ -210,8 +127,29 @@ if __name__ == "__main__":
                         "up":{"kp_names":kp_names_up,"kp_rules":kp_rules_up}}
 
     kp_names_key = os.path.basename(args.config_file).split("_")[1]
-    kp_names = kp_name_rule_dict[kp_names_key]["kp_names"]
-    kp_rules = kp_name_rule_dict[kp_names_key]["kp_rules"]
+    # kp_names = kp_name_rule_dict[kp_names_key]["kp_names"]
+    # kp_rules = kp_name_rule_dict[kp_names_key]["kp_rules"]
+
+    kp_names = ["xinbao-5","xinbao-6","xinbao-7","xinbao-8","xinbao-9",  
+              "xin-4","xin-5","xin-6",
+              "fei-6","fei-7","fei-8",
+              "sanjiao-1","sanjiao-2","sanjiao-3",
+              ]
+    kp_rules = [
+                # middle up nei  hand
+                ('xinbao-5', 'xinbao-6', (50, 204, 255)),
+                ('xinbao-6', 'xinbao-7', (60, 204, 255)),
+                ('xinbao-7', 'xinbao-8', (70, 204, 255)),
+                ('xinbao-8', 'xinbao-9', (80, 204, 255)),
+                ('xin-4', 'xin-5', (10,255,100)),
+                ('xin-5', 'xin-6', (10,255,100)),
+                ('fei-6', 'fei-7', (10,255,100)),
+                ('fei-7', 'fei-8', (10,255,100)),
+
+                # #middle down wai  right hand
+                # ('sanjiao-1', 'sanjiao-2', (255, 0 , 255)),
+                # ('sanjiao-2', 'sanjiao-3', (255, 0 , 255)),
+                ]
     metadata = {
             "thing_classes": ["person"],
             "keypoint_names": kp_names,
@@ -341,7 +279,7 @@ if __name__ == "__main__":
                 cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
                 cv2.imshow(WINDOW_NAME, visualized_output.get_image()[:, :, ::-1])
                 # cv2.imwrite("/911G/data/cure_images/pred_error/left/l_crop_pred.jpg",visualized_output.get_image()[:, :, ::-1])
-                if cv2.waitKey(0) == 27:
+                if cv2.waitKey(1) == 27:
                     break  # esc to quit
         with open("/home/zy/Desktop/predict_res.txt","a") as f:
             f.write("*"*45)

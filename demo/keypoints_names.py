@@ -7,7 +7,9 @@ __all__ = ["MIDDLE_UP_ALL_JL","MIDDLE_DOWN_ALL_JL",
             "PARTIAL_LEG_UP","PARTIAL_LEFT_HAND_UP","PARTIAL_RIGHT_HAND_UP",
             "RULES_WHOLE_DOWN","RULES_UP",
             "RULES_LEFT_DOWN",
-            "UP_LEFT_HAND","UP_RIGHT_HAND","UP_LEFT_FOOT","UP_RIGHT_FOOT","DOWN_LEFT_HAND","DOWN_RIGHT_HAND"]
+            "UP_LEFT_HAND","UP_RIGHT_HAND","UP_LEFT_FOOT","UP_RIGHT_FOOT","DOWN_LEFT_HAND","DOWN_RIGHT_HAND",
+            "ALLJL_DOWN_RIGHT_FOOT","ALLJL_UP_LEFT_HAND","ALLJL_UP_RIGHT_HAND","ALLJL_DOWN_RIGHT_HAND","ALLJL_DOWN_LEFT_HAND",
+            "ALLJL_DOWN_RIGHT_HEAD","ALLJL_UP_LEFT_FOOT","ALLJL_UP_FACE","ALLJL_TOP_HEAD"]
 
 #  26个点 middle_down_nei
 DOWN_NEI = ['R-shen-1', 'R-shen-2', 'R-shen-3', 'R-shen-4', 'R-shen-5',
@@ -100,6 +102,45 @@ DOWN_LEFT_HAND = ["L-sanjiao-1","L-sanjiao-2","L-sanjiao-3"]
 DOWN_RIGHT_HAND = ["R-sanjiao-1","R-sanjiao-2","R-sanjiao-3"]
 
 
+#新全经络局部手脚
+
+#侧面 脚 right_foot_left_down_wai
+ALLJL_DOWN_RIGHT_FOOT = ["L-shen-1","L-shen-2","L-shen-7","L-shen-8","R-pangguang-25","R-pangguang-26"]
+
+#left_hand_middle_up_nei
+ALLJL_UP_LEFT_HAND = ["L-xinbao-5","L-xinbao-6", "L-xinbao-7", "L-xinbao-8", "L-xinbao-9","L-fei-6","L-fei-7","L-fei-8","L-xin-4","L-xin-5","L-xin-6"]
+#right_hand_middle_up_nei
+ALLJL_UP_RIGHT_HAND = ["R-xinbao-5","R-xinbao-6", "R-xinbao-7", "R-xinbao-8", "R-xinbao-9","R-fei-6","R-fei-7","R-fei-8","R-xin-4","R-xin-5","R-xin-6"]
+
+#left_hand_middle_down_wai
+ALLJL_DOWN_LEFT_HAND = ["L-dachang-1", "L-dachang-2", "L-dachang-3", "L-dachang-4", "L-xiaochang-1","L-xiaochang-2", "L-xiaochang-3", "L-sanjiao-1", "L-sanjiao-2", "L-sanjiao-3"]
+#right_hand_middle_down_wai
+ALLJL_DOWN_RIGHT_HAND = ["R-dachang-1", "R-dachang-2", "R-dachang-3", "R-dachang-4", "R-xiaochang-1","R-xiaochang-2", "R-xiaochang-3", "R-sanjiao-1", "R-sanjiao-2", "R-sanjiao-3"]
+
+
+#头部 right_head_left_down_wai
+ALLJL_DOWN_RIGHT_HEAD = ['R-sanjiao-8', 'R-sanjiao-9', 'R-sanjiao-10', 'R-sanjiao-11', 'R-sanjiao-12', 'R-sanjiao-13', 'R-sanjiao-14', 'R-sanjiao-15', 'R-sanjiao-16', 'R-sanjiao-17', 'R-sanjiao-18', 'R-sanjiao-19', 'R-sanjiao-20', 'R-sanjiao-21', 'R-sanjiao-22', 'R-sanjiao-23', 'R-sanjiao-24','R-dan-1', 'R-dan-2', 'R-dan-3', 'R-dan-4', 'R-dan-5', 'R-dan-6', 'R-dan-7', 'R-dan-8', 'R-dan-9', 'R-dan-10', 'R-dan-11', 'R-dan-12', 'R-dan-13', 'R-dan-14', 'R-dan-15', 'R-dan-16', 'R-dan-17', 'R-dan-18']
+
+#up  侧面 脚  left_foot_left_up_nei
+ALLJL_UP_LEFT_FOOT = ['L-dan-40','L-dan-41','L-gan-1','L-gan-2']
+
+ALLJL_UP_FACE = ['L-wei-1','L-wei-2','L-wei-3','L-wei-4','L-wei-5','L-wei-6','L-wei-7','L-wei-8','L-wei-9','L-wei-10','L-wei-11',
+                             'R-wei-1','R-wei-2','R-wei-3','R-wei-4','R-wei-5','R-wei-6','R-wei-7','R-wei-8','R-wei-9','R-wei-10','R-wei-11',
+                             'L-gan-20','L-gan-21','L-gan-22','L-gan-23','L-gan-24','L-gan-25','L-gan-26',
+                             'R-gan-20','R-gan-21','R-gan-22','R-gan-23','R-gan-24','R-gan-25','R-gan-26',
+                             'du-8','du-9','du-10','du-11','ren-1','ren-2']
+
+#头部相机  头顶天灵盖穴位
+ALLJL_TOP_HEAD = ['L-pangguang-4','L-pangguang-5','L-pangguang-6','L-pangguang-40','R-pangguang-4','R-pangguang-5','R-pangguang-6','R-pangguang-40',
+                'du-20','du-21','du-22']
+
+
+
+
+res = ALLJL_DOWN_RIGHT_FOOT+ALLJL_UP_LEFT_HAND+ALLJL_UP_RIGHT_HAND+ALLJL_DOWN_LEFT_HAND+ALLJL_DOWN_RIGHT_HAND+ \
+        ALLJL_DOWN_RIGHT_HEAD+ALLJL_UP_LEFT_FOOT+ALLJL_UP_FACE+ALLJL_TOP_HEAD
+
+
 
 
 RULES_UP = [
@@ -123,6 +164,16 @@ RULES_UP = [
         ('L-xinbao-8', 'L-xinbao-9', (80, 204, 255)),
 
         #wei
+        ('L-wei-1','L-wei-2',(255, 128, 0)),
+        ('L-wei-2','L-wei-3',(255, 128, 0)),
+        ('L-wei-3','L-wei-4',(255, 128, 0)),
+        ('L-wei-4','L-wei-5',(255, 128, 0)),
+        ('L-wei-5','L-wei-6',(255, 128, 0)),
+        ('L-wei-6','L-wei-7',(255, 128, 0)),
+        ('L-wei-7','L-wei-8',(255, 128, 0)),
+        ('L-wei-8','L-wei-9',(255, 128, 0)),
+        ('L-wei-9','L-wei-10',(255, 128, 0)),
+        ('L-wei-10','L-wei-11',(255, 128, 0)),
         ('L-wei-15', 'L-wei-16', (255, 128, 0)),
         ('L-wei-16', 'L-wei-17', (255, 128, 0)),
         ('L-wei-17', 'L-wei-18', (255, 128, 0)),
@@ -139,6 +190,16 @@ RULES_UP = [
         ('L-wei-28', 'L-wei-29', (255, 128, 0)),
         ('L-wei-29', 'L-wei-30', (255, 128, 0)),
 
+        ('R-wei-1','R-wei-2',(255, 128, 0)),
+        ('R-wei-2','R-wei-3',(255, 128, 0)),
+        ('R-wei-3','R-wei-4',(255, 128, 0)),
+        ('R-wei-4','R-wei-5',(255, 128, 0)),
+        ('R-wei-5','R-wei-6',(255, 128, 0)),
+        ('R-wei-6','R-wei-7',(255, 128, 0)),
+        ('R-wei-7','R-wei-8',(255, 128, 0)),
+        ('R-wei-8','R-wei-9',(255, 128, 0)),
+        ('R-wei-9','R-wei-10',(255, 128, 0)),
+        ('R-wei-10','R-wei-11',(255, 128, 0)),
         ('R-wei-15', 'R-wei-16', (255, 128, 0)),
         ('R-wei-16', 'R-wei-17', (255, 128, 0)),
         ('R-wei-17', 'R-wei-18', (255, 128, 0)),
@@ -195,10 +256,45 @@ RULES_UP = [
         ('R-fei-4', 'R-fei-5', (10,255,100)),
         ('R-fei-5', 'R-fei-6', (10,255,100)),
         ('R-fei-6', 'R-fei-7', (10,255,100)),
-        ('R-fei-7', 'R-fei-8', (10,255,100))
+        ('R-fei-7', 'R-fei-8', (10,255,100)),
 
-        
+        ('R-xin-1', 'R-xin-2', (10,255,100)),
+        ('R-xin-2', 'R-xin-3', (10,255,100)),
+        ('R-xin-3', 'R-xin-4', (10,255,100)),
+        ('R-xin-4', 'R-xin-5', (10,255,100)),
+        ('R-xin-5', 'R-xin-6', (10,255,100)),
+        ('R-xin-6', 'R-xin-7', (10,255,100)),
+        ('R-xin-7', 'R-xin-8', (10,255,100)),
 
+        ('L-xin-1', 'L-xin-2', (10,255,100)),
+        ('L-xin-2', 'L-xin-3', (10,255,100)),
+        ('L-xin-3', 'L-xin-4', (10,255,100)),
+        ('L-xin-4', 'L-xin-5', (10,255,100)),
+        ('L-xin-5', 'L-xin-6', (10,255,100)),
+        ('L-xin-6', 'L-xin-7', (10,255,100)),
+        ('L-xin-7', 'L-xin-8', (10,255,100)),
+
+        ('L-gan-20','L-gan-21',(10,255,100)),
+        ('L-gan-21','L-gan-22',(10,255,100)),
+        ('L-gan-22','L-gan-23',(10,255,100)),
+        ('L-gan-23','L-gan-24',(10,255,100)),
+        ('L-gan-24','L-gan-25',(10,255,100)),
+        ('L-gan-25','L-gan-26',(10,255,100)),
+
+
+        ('R-gan-20','R-gan-21',(10,255,100)),
+        ('R-gan-21','R-gan-22',(10,255,100)),
+        ('R-gan-22','R-gan-23',(10,255,100)),
+        ('R-gan-23','R-gan-24',(10,255,100)),
+        ('R-gan-24','R-gan-25',(10,255,100)),
+        ('R-gan-25','R-gan-26',(10,255,100)),
+
+
+
+        ('du-8','du-9',(10,10,100)),
+        ('du-9','du-10',(10,10,100)),
+        ('du-10','du-11',(10,10,100)),
+        ('ren-1','ren-2',(10,10,100)), 
     ]
 
 LEFT_DOWN = ['R-sanjiao-8','R-sanjiao-9','R-sanjiao-10','R-sanjiao-11','R-sanjiao-12','R-sanjiao-13','R-sanjiao-14','R-sanjiao-15','R-sanjiao-16',
@@ -334,6 +430,21 @@ RULES_WHOLE_DOWN = [
         ('R-sanjiao-6', 'R-sanjiao-7', (255, 0 , 255)),
         ('R-sanjiao-7', 'R-sanjiao-8', (255, 0 , 255)),
         ('R-sanjiao-8', 'R-sanjiao-9', (255, 0 , 255)),
+        ('R-sanjiao-9', 'R-sanjiao-10', (255, 0 , 255)),
+        ('R-sanjiao-10', 'R-sanjiao-11', (255, 0 , 255)),
+        ('R-sanjiao-11', 'R-sanjiao-12', (255, 0 , 255)),
+        ('R-sanjiao-12', 'R-sanjiao-13', (255, 0 , 255)),
+        ('R-sanjiao-13', 'R-sanjiao-14', (255, 0 , 255)),
+        ('R-sanjiao-14', 'R-sanjiao-15', (255, 0 , 255)),
+        ('R-sanjiao-15', 'R-sanjiao-16', (255, 0 , 255)),
+        ('R-sanjiao-16', 'R-sanjiao-17', (255, 0 , 255)),
+        ('R-sanjiao-17', 'R-sanjiao-18', (255, 0 , 255)),
+        ('R-sanjiao-18', 'R-sanjiao-19', (255, 0 , 255)),
+        ('R-sanjiao-19', 'R-sanjiao-20', (255, 0 , 255)),
+        ('R-sanjiao-20', 'R-sanjiao-21', (255, 0 , 255)),
+        ('R-sanjiao-21', 'R-sanjiao-22', (255, 0 , 255)),
+        ('R-sanjiao-22', 'R-sanjiao-23', (255, 0 , 255)),
+        ('R-sanjiao-23', 'R-sanjiao-24', (255, 0 , 255)),
 
         ('L-sanjiao-1', 'L-sanjiao-2', (255, 0 , 255)),
         ('L-sanjiao-2', 'L-sanjiao-3', (255, 0 , 255)),
@@ -345,6 +456,10 @@ RULES_WHOLE_DOWN = [
         ('L-sanjiao-8', 'L-sanjiao-9', (255, 0 , 255)),
         #pangguang
 
+
+        ('L-pangguang-4', 'L-pangguang-5', (0 ,255, 255)),
+        ('L-pangguang-5', 'L-pangguang-6', (0 ,255, 255)),
+        ('L-pangguang-6', 'L-pangguang-40', (0 ,255, 255)),
 
         ('L-pangguang-7', 'L-pangguang-30', (0 ,255, 255)),
         ('L-pangguang-30', 'L-pangguang-8', (0 ,255, 255)),
@@ -366,6 +481,10 @@ RULES_WHOLE_DOWN = [
         ('L-pangguang-23', 'L-pangguang-24', (255,255,0)),
 
 
+        ('R-pangguang-4', 'R-pangguang-5', (0 ,255, 255)),
+        ('R-pangguang-5', 'R-pangguang-6', (0 ,255, 255)),
+        ('R-pangguang-6', 'R-pangguang-40', (0 ,255, 255)),
+
         ('R-pangguang-7', 'R-pangguang-30', (0,255,255)),
         ('R-pangguang-30', 'R-pangguang-8', (0,255,255)),
         ('R-pangguang-8', 'R-pangguang-9', (0,255,255)),
@@ -384,10 +503,35 @@ RULES_WHOLE_DOWN = [
         ('R-pangguang-21', 'R-pangguang-22', (255,255,0)),
         ('R-pangguang-22', 'R-pangguang-23', (255,255,0)),
         ('R-pangguang-23', 'R-pangguang-24', (255,255,0)),    
+
+
+
+        ('R-dan-1', 'R-dan-2', (255,255,0)),    
+        ('R-dan-2', 'R-dan-3', (255,255,0)),    
+        ('R-dan-3', 'R-dan-4', (255,255,0)),    
+        ('R-dan-4', 'R-dan-5', (255,255,0)),    
+        ('R-dan-5', 'R-dan-6', (255,255,0)),    
+        ('R-dan-6', 'R-dan-7', (255,255,0)),    
+        ('R-dan-7', 'R-dan-8', (255,255,0)),    
+        ('R-dan-8', 'R-dan-9', (255,255,0)),    
+        ('R-dan-9', 'R-dan-10', (255,255,0)),    
+        ('R-dan-10', 'R-dan-11', (255,255,0)),    
+        ('R-dan-11', 'R-dan-12', (255,255,0)),    
+        ('R-dan-12', 'R-dan-13', (255,255,0)),    
+        ('R-dan-13', 'R-dan-14', (255,255,0)),    
+        ('R-dan-14', 'R-dan-15', (255,255,0)),    
+        ('R-dan-15', 'R-dan-16', (255,255,0)),    
+        ('R-dan-16', 'R-dan-17', (255,255,0)),    
+        ('R-dan-17', 'R-dan-18', (255,255,0)),  
+
+        #督脉
+        ('du-20', 'du-21', (255,255,0)),    
+        ('du-21', 'du-22', (255,255,0)),    
+
+
+
+
     ]
-
-
-
 
 
 

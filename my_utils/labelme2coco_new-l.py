@@ -458,6 +458,14 @@ if __name__ == "__main__":
                    'R-pi-5', 'R-pi-6', 'R-pi-7', 'R-pi-8','R-pi-9','R-pi-10','R-pi-11','R-pi-12']
 
     jl_whole_middle_down_wai = jl_middle_down_wai_care + jl_head_middle_down_wai
+
+    jl_right_head_left_down_wai = ['R-sanjiao-8', 'R-sanjiao-9', 'R-sanjiao-10', 'R-sanjiao-11', 'R-sanjiao-12', 'R-sanjiao-13', 'R-sanjiao-14', 'R-sanjiao-15', 'R-sanjiao-16', 'R-sanjiao-17', 'R-sanjiao-18', 'R-sanjiao-19', 'R-sanjiao-20', 'R-sanjiao-21', 'R-sanjiao-22', 'R-sanjiao-23', 'R-sanjiao-24',
+                                   'R-dan-1', 'R-dan-2', 'R-dan-3', 'R-dan-4', 'R-dan-5', 'R-dan-6', 'R-dan-7', 'R-dan-8', 'R-dan-9', 'R-dan-10', 'R-dan-11', 'R-dan-12', 'R-dan-13', 'R-dan-14', 'R-dan-15', 'R-dan-16', 'R-dan-17', 'R-dan-18']
+
+    jl_left_foot_left_up_nei = ['L-dan-40','L-dan-41','L-gan-1','L-gan-2']
+
+
+
     # *********************************************合并经络-pointName******************************************************************
     jl_left_down_wai = jl_head_left
 
@@ -504,10 +512,10 @@ if __name__ == "__main__":
                      'R-wei-23','R-wei-24', 'R-wei-25', 'R-wei-26', 'R-wei-27']
 
 
-    baseDir = "/911G/data/temp/20221229新加手托脚托新数据/20230311_最新修改/middle_up_nei/"
+    baseDir = "/911G/data/new_all_jldata/20230410/left_up_nei/"
     EightModelList = [
-        [jl_middle_up_nei_care, 'train'],
-        [jl_middle_up_nei_care, 'test'],
+        [jl_left_foot_left_up_nei, 'train_crop/left_foot'],
+        [jl_left_foot_left_up_nei, 'test_crop/left_foot'],
         ]
 
     # # 生成手脚18个模型的数据集json文件

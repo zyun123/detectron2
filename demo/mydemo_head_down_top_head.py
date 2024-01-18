@@ -107,99 +107,13 @@ if __name__ == "__main__":
     logger = setup_logger()
     logger.info("Arguments: " + str(args))
 
-    #middle_down_wai  包含头部56个点
-    kp_names_down = MIDDLE_DOWN_CARE+HEAD_MIDDLE_DOWN
-    kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_down_wai  90个点
-    # kp_names_down = MIDDLE_DOWN_ALL_JL
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_down_nei 28个点
-    # kp_names_down = DOWN_NEI
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_up_nei  84个点  老版本
-    # kp_names_up = MIDDLE_UP_ALL_JL
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei 无肺经  74个点
-    # kp_names_up = MIDDLE_UP_WITHOUT_FEI
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei 有肺经  90个点
-    kp_names_up = MIDDLE_UP_WITH_FEI
-    kp_rules_up = RULES_UP
-
-
-
-    #middle_up_nei  partial leg 28个点
-    # kp_names_up = PARTIAL_LEG_UP
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei partial hand 8个点
-    # kp_names_up = PARTIAL_LEFT_HAND_UP
-    # kp_names_up = PARTIAL_RIGHT_HAND_UP
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei left_hand 局部图局部识别 只有心包经 5个点 
-    # kp_names_up = UP_LEFT_HAND
-    # kp_rules_up = RULES_UP
-    
-    # # #middle_up_nei right_hand 局部图局部识别 只有心包经 5个点 
-    # kp_names_up = UP_RIGHT_HAND
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei left_foot 局部图局部识别  7个点 
-    # kp_names_up = UP_LEFT_FOOT
-    # kp_rules_up = RULES_UP
-
-    #middle_up_nei right_foot 局部图局部识别  7个点 
-    # kp_names_up = UP_RIGHT_FOOT
-    # kp_rules_up = RULES_UP
-
-    # #middle_down_wai  left hand 3个点
-    # kp_names_down = DOWN_LEFT_HAND
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #middle_down_wai  left hand 3个点
-    # kp_names_down = DOWN_RIGHT_HAND
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-
+    #全经络 局部模型 head_down_wai top_head    11个点
+    kp_names_down = ALLJL_TOP_HEAD
+    kp_rules_down =RULES_WHOLE_DOWN
 
     #全经络 局部模型 left_hand 局部图局部识别 心包经,肺经，心经 11个点 
-    # kp_names_up = ALLJL_UP_LEFT_HAND
-    # kp_rules_up = RULES_UP
-
-    #全经络 局部模型 right_hand 局部图局部识别 心包经,肺经，心经 11个点 
-    # kp_names_up = ALLJL_UP_RIGHT_HAND
-    # kp_rules_up = RULES_UP
-
-    #全经络 局部模型 right_hand 局部图局部识别 心包经,肺经，心经 11个点 
-    # kp_names_down = ALLJL_DOWN_LEFT_HAND
-    # kp_names_down = ALLJL_DOWN_RIGHT_HAND
-    # kp_rules_down = RULES_WHOLE_DOWN
-
-    #全经络 局部模型 left_down_wai  right_foot  6个点
-    # kp_names_down = ALLJL_DOWN_RIGHT_FOOT
-    # kp_rules_down =RULES_WHOLE_DOWN
-
-    #全经络 局部模型 left_down_wai  right_head  35个点
-    # kp_names_down = ALLJL_DOWN_RIGHT_HEAD
-    # kp_rules_down =RULES_WHOLE_DOWN
-
-    #全经络 局部模型 head_down_wai top_head    11个点
-    # kp_names_down = ALLJL_TOP_HEAD
-    # kp_rules_down =RULES_WHOLE_DOWN
-
-    # #全经络 局部模型 left foot 局部图局部识别 胆经 肝经 4点 
-    # kp_names_up = ALLJL_UP_LEFT_FOOT
-    # kp_rules_up = RULES_UP
-
-    #全经络 局部模型 left up nei   face
-    # kp_names_up = ALLJL_UP_FACE
-    # kp_rules_up = RULES_UP
+    kp_names_up = ALLJL_UP_LEFT_HAND
+    kp_rules_up = RULES_UP
 
 
     kp_use_mean_std = {"down":{"mean":[140.871, 146.204, 151.602],"std":[43.098, 30.778, 25.503]},

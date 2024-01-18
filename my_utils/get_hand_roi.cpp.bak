@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<fstream>
+#include<sstream>
+
+void getLeftRoi(const string& file,vector<vector<double> > &originalRoi){
+    ifstream infile;
+    infile.open(file.data());
+    // assert(infile.is_open());
+    string s;
+    vector<double> temp;
+    while(getline(infile,s)){
+        
+        istringstream iss(s);
+        double d;
+        while(!iss.eof()){
+            iss>>d;
+            temp.push_back(d);
+        }
+        originalRoi.push_back(temp);
+        temp.clear();
+        s.clear();
+    }
+    infile.close();
+    for(vector<double> tt: originalRoi){
+        cout << tt[0] << ","<< tt[1] << "," << tt[2] << "," << tt[3]<< endl;
+    }
+}
+
+
+void get_hand_roi(const double bedDist){
+    vector<vector<double> >originalRoi;
+    string filePath = "./roi.txt";
+    getLeftRoi(filePath,originalRoi);
+    // vector<double> roi;
+    double pixDist = bedDist * 400;  //1cm --> 4pix
+    originalRoi[0][0] += pixDist;
+    originalRoi[0][2] += pixDist;
+    originalRoi[1][0] += pixDist;
+    originalRoi[1][2] += pixDist;
+    for(vector<double> tt: originalRoi){
+        cout << tt[0] << ","<< tt[1] << "," << tt[2] << "," << tt[3]<< endl;
+    }
+
+}
+
+
+
+int main(void){
+    string file = "./roi.txt";
+    vector<vector<double> > leftRoi;
+    // getLeftRoi(file,leftRoi);
+    double bedDist = -0.10;
+    get_hand_roi(bedDist);
+}

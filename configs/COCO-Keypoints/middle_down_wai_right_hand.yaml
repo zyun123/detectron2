@@ -17,8 +17,8 @@ MODEL:
   RESNETS:
     DEPTH: 50
   ROI_KEYPOINT_HEAD:
-    #局部图局部识别 right_hand 3个点
-    NUM_KEYPOINTS: 3
+    #局部图局部识别 right_hand 3个点   新全经络增加大肠小肠  总共10个点
+    NUM_KEYPOINTS: 10
   WEIGHTS: /home/zy/Downloads/model_final_a6e10b.pkl
 OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
 SOLVER:

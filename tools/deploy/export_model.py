@@ -130,7 +130,11 @@ def export_tracing(torch_model, inputs):
         dump_torchscript_IR(ts_model, args.output)
     elif args.format == "onnx":
         with PathManager.open(os.path.join(args.output, "model.onnx"), "wb") as f:
-            torch.onnx.export(traceable_model, (image,), f, opset_version=STABLE_ONNX_OPSET_VERSION)
+            # torch.onnx.export(traceable_model, (image,), f, opset_version=STABLE_ONNX_OPSET_VERSION)
+            input_names = ["input"]
+            output_names = ["boxes","labels","scores","keypoints","keypoint_socores"]
+            torch.onnx.export(traceable_model, (image,), f, opset_version=STABLE_ONNX_OPSET_VERSION,
+                              input_names = input_names,output_names = output_names)
     logger.info("Inputs schema: " + str(traceable_model.inputs_schema))
     logger.info("Outputs schema: " + str(traceable_model.outputs_schema))
 
@@ -203,13 +207,17 @@ if __name__ == "__main__":
         nargs=argparse.REMAINDER,
     )
     args = parser.parse_args()
-    args.config_file = "configs/COCO-Keypoints/middle_up_nei_right_foot.yaml"
+    args.config_file = "configs/COCO-Keypoints/left_up_nei_left_foot.yaml"
     args.export_method = "tracing"
-    args.format = "torchscript"
+    # args.format = "torchscript"
+    args.format = "onnx"
     args.opts = ["MODEL.WEIGHTS",
-                "/911G/data/temp/20221229新加手托脚托新数据/20230311_最新修改/middle_up_nei/right_foot_middle_up_nei.pth"]
-    args.output_model_name = "/911G/data/temp/20221229新加手托脚托新数据/20230311_最新修改/middle_up_nei/right_foot_middle_up_nei.ts"
-    args.sample_image = "/911G/data/temp/20221229新加手托脚托新数据/20230311_最新修改/middle_up_nei/test_crop/right_foot/crop_m_up_nei_20221228151547322.jpg"
+                "/911G/data/new_all_jldata/20230410/0725_train_model/left_foot_left_up_nei.pth"]
+    args.output = "/911G/data/new_all_jldata/20230410/0725_train_model"
+    args.output_model_name = \
+        "/911G/data/new_all_jldata/20230410/0725_train_model/left_foot_left_up_nei.ts"
+    args.sample_image = \
+        "/911G/data/new_all_jldata/20230410/left_up_nei/train_crop/left_foot/l_up_nei_20230210163137158.jpg"
 
 
 

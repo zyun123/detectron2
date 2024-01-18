@@ -1,0 +1,9 @@
+470.0 120.0 670.0 320.0     #middle_up_nei  right_hand
+470.0 410.0 670.0 610.0    #middle_up_nei  left_hand
+
+470.0 410.0 670.0 610.0     #middle_down_wai  right_hand
+470.0 120.0 670.0 320.0    #middle_down_wai  left_hand
+
+60.0 180.0 380.0 500.0    #left_down_wai foot
+725.0 185.0 1045.0 505.0     #left_down_wai head
+50.0 200.0 370.0 520.0      #left_up_nei foot

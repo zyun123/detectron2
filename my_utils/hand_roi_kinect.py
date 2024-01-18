@@ -33,9 +33,9 @@ def get_new_json(root_dir,jsfile,dst_dir,roi_lt,roi_rb):
 
 # cfg = setup_cfg(args,kp_use_mean_std,kp_names_key)
 # demo = VisualizationDemo(cfg,parallel = False)
-root_dir = "/911G/data/new_all_jldata/20230804/middle_up_nei/test_crop/face_test/face_0_cap"
+root_dir = "/911G/data/new_all_jldata/20231226/middle_up_nei/test"
 
-save_dir = "/911G/data/new_all_jldata/20230804/middle_up_nei/test_crop/face_test/face_0_cap_crop"
+save_dir = "/911G/data/new_all_jldata/20231226/middle_up_nei/test_crop/right_hand"
 os.makedirs(save_dir,exist_ok = True)
 
 # roi_lt = [470,120]    #middle_up_nei  right_hand    200
@@ -49,7 +49,7 @@ os.makedirs(save_dir,exist_ok = True)
 # roi_lt = [50,200]   #left_up_nei foot    320
 
 # roi_lt = [760,240]   #middle_up_nei  face   256
-roi_lt = [790,200]   #middle_up_nei  face   256  kinect 0位置  
+# roi_lt = [790,200]   #middle_up_nei  face   256  kinect 0位置  每移动500 roi框x +- 21pix
   
 # roi_lt = [380,240]      #head_down_wai  head  320
 # roi_lt = [410,200]      #head_down_wai  head  320
@@ -61,15 +61,27 @@ roi_lt = [790,200]   #middle_up_nei  face   256  kinect 0位置
 
 # roi_rb = [roi_lt[0]+200,roi_lt[1]+200]   #apply middle_up_nei hand
 # roi_rb = [roi_lt[0]+300,roi_lt[1]+300]   #apply middle_up_nei hand
-roi_rb = [roi_lt[0]+256,roi_lt[1]+256]   #apply left_down_wai foot
-roi_arr = np.array([roi_lt,roi_rb])   
+
+
+ 
 for file in os.listdir(root_dir):
     # if file.startswith("l_up_nei"):  #apply middle_up_nei hand
     if file.endswith(".jpg"):  #apply middle_up_nei hand
     # if file.endswith(".jpg") and file.startswith("left_up_nei"):  #apply middle_up_nei hand
         file_path = os.path.join(root_dir,file)
         img = cv2.imread(file_path)
-
+        # roi_lt = [790,200]   #middle_up_nei  face   256  kinect 0位置  每移动500 roi框x +- 21pix
+        # roi_lt = [470,360]    #middle_up_nei  left_hand    200
+        # roi_lt = [470,77]    #middle_up_nei  right_hand    200
+        roi_lt = [470,77]    #middle_down_wai  left_hand    200
+        # roi_lt = [470,360]    #middle_down_wai  right_hand    200
+        wh = 200 #矩形框边长
+        bed_move_dist = round(int(file.split("_")[-1][:-4]) / 500) * 21     #转换成移动了多少像素值
+        print(f"{file} move dist: {bed_move_dist}")
+        print("roi_lt: " , roi_lt)
+        roi_lt = (roi_lt[0] - bed_move_dist,roi_lt[1])
+        print("roi_lt: " , roi_lt)
+        roi_rb = (roi_lt[0] + wh , roi_lt[1] + wh)
         # cv2.rectangle(img,roi_lt,roi_rb,(255,0,255),1,8)
         # cv2.putText(img,"roi",roi_lt,cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,8)
         # cv2.imshow("img",img)
@@ -81,7 +93,7 @@ for file in os.listdir(root_dir):
 
         jsfile = file.replace("jpg","json")
         get_new_json(root_dir,jsfile,save_dir,roi_lt,roi_rb)
-        key = cv2.waitKey(0)
+        key = cv2.waitKey(1)
         if key ==27 or key == ord("q"):   #esc or q
             break
 

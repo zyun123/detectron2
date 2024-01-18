@@ -1,0 +1,29 @@
+DATALOADER:
+  NUM_WORKERS: 4
+DATASETS:
+  TEST: ('all_hand_test',)
+  TRAIN: ('all_hand_train',)
+INPUT:
+  MAX_SIZE_TEST: 256
+  MAX_SIZE_TRAIN: 256
+  MIN_SIZE_TEST: 256
+  MIN_SIZE_TRAIN: (256,)
+  RANDOM_FLIP: none
+MODEL:
+  RESNETS:
+    DEPTH: 50
+  ROI_KEYPOINT_HEAD:
+    LOSS_WEIGHT: 4.0
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: false
+    NUM_KEYPOINTS: 42
+#   WEIGHTS: /22T/data/zy/pretrain_model/model_final_04e291keypoints_50.pkl
+# OUTPUT_DIR: /22T/data/zy/output_model/merge_all_hand/2023_12_18PM/all_hand
+SOLVER:
+  BASE_LR: 0.01
+  CHECKPOINT_PERIOD: 5000
+  IMS_PER_BATCH: 8
+  MAX_ITER: 100000
+  STEPS: (70000,80000,90000)
+TEST:
+  EVAL_PERIOD: 2000
+_BASE_: Base-Keypoint-RCNN-FPN.yaml

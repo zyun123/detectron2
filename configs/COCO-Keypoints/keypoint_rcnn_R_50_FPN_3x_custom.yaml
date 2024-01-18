@@ -1,0 +1,33 @@
+_BASE_: "Base-Keypoint-RCNN-FPN.yaml"
+
+DATASETS:
+  TEST: ('shanyi_dataset_test',)
+  TRAIN: ('shanyi_dataset_train',)
+
+INPUT:
+  MAX_SIZE_TEST: 1280
+  MAX_SIZE_TRAIN: 1280
+  MIN_SIZE_TEST: 736
+  MIN_SIZE_TRAIN: (736,)
+  RANDOM_FLIP: none
+
+
+MODEL:
+  RESNETS:  #resnet 50  backbone
+    DEPTH: 50
+  WEIGHTS: "/home/zy/Downloads/model_final_a6e10b (1).pkl"
+  ROI_KEYPOINT_HEAD:
+    #局部图局部识别 right_foot 7个点
+    NUM_KEYPOINTS: 74
+OUTPUT_DIR: /home/zy/shanyi/output
+SOLVER:
+  BASE_LR: 0.01 #学习率 0.01-> 0.001  ->0.0001
+  CHECKPOINT_PERIOD: 10000  #savemodel per steps
+  IMS_PER_BATCH: 2  #batchsize
+  REFERENCE_WORLD_SIZE: 1 #单机训练  
+
+  MAX_ITER: 30000
+  STEPS: (25000, 28000)   #更改学习率
+  MAX_ITER: 270000
+TEST:
+  EVAL_PERIOD: 2000  #每隔2000步  验证一下

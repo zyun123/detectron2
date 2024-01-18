@@ -1,0 +1,22 @@
+#新全经络局部手脚
+
+#侧面 脚 right_foot_left_down_wai
+ALLJL_DOWN_RIGHT_FOOT = ["L-shen-1","L-shen-2","L-shen-7","L-shen-8","R-pangguang-25","R-pangguang-26"]
+
+#left_hand_middle_up_nei
+ALLJL_UP_LEFT_HAND = ["L-xinbao-5","L-xinbao-6", "L-xinbao-7", "L-xinbao-8", "L-xinbao-9","L-fei-6","L-fei-7","L-fei-8","L-xin-4","L-xin-5","L-xin-6"]
+#right_hand_middle_up_nei
+ALLJL_UP_RIGHT_HAND = ["R-xinbao-5","R-xinbao-6", "R-xinbao-7", "R-xinbao-8", "R-xinbao-9","R-fei-6","R-fei-7","R-fei-8","R-xin-4","R-xin-5","R-xin-6"]
+
+#left_hand_middle_down_wai
+ALLJL_DOWN_LEFT_HAND = ["L-dachang-1", "L-dachang-2", "L-dachang-3", "L-dachang-4", "L-xiaochang-1","L-xiaochang-2", "L-xiaochang-3", "L-sanjiao-1", "L-sanjiao-2", "L-sanjiao-3"]
+#right_hand_middle_down_wai
+ALLJL_DOWN_RIGHT_HAND = ["R-dachang-1", "R-dachang-2", "R-dachang-3", "R-dachang-4", "R-xiaochang-1","R-xiaochang-2", "R-xiaochang-3", "R-sanjiao-1", "R-sanjiao-2", "R-sanjiao-3"]
+
+
+#头部 right_head_left_down_wai
+ALLJL_DOWN_RIGHT_HEAD = ['R-sanjiao-8', 'R-sanjiao-9', 'R-sanjiao-10', 'R-sanjiao-11', 'R-sanjiao-12', 'R-sanjiao-13', 'R-sanjiao-14', 'R-sanjiao-15', 'R-sanjiao-16', 'R-sanjiao-17', 'R-sanjiao-18', 'R-sanjiao-19', 'R-sanjiao-20', 'R-sanjiao-21', 'R-sanjiao-22', 'R-sanjiao-23', 'R-sanjiao-24','R-dan-1', 'R-dan-2', 'R-dan-3', 'R-dan-4', 'R-dan-5', 'R-dan-6', 'R-dan-7', 'R-dan-8', 'R-dan-9', 'R-dan-10', 'R-dan-11', 'R-dan-12', 'R-dan-13', 'R-dan-14', 'R-dan-15', 'R-dan-16', 'R-dan-17', 'R-dan-18']
+
+#up  侧面 脚  left_foot_left_up_nei
+ALLJL_UP_LEFT_FOOT = ['L-dan-40','L-dan-41','L-gan-1','L-gan-2']
+

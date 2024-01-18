@@ -19,7 +19,7 @@ You may want to write your own script with your datasets and other customization
 import logging
 import os
 from collections import OrderedDict
-
+from detectron2.data.datasets.coco import register_coco_instances
 import detectron2.utils.comm as comm
 from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import get_cfg
@@ -37,8 +37,18 @@ from detectron2.evaluation import (
     verify_results,
 )
 from detectron2.modeling import GeneralizedRCNNWithTTA
-
-
+kp_names = ['L-pi-1', 'L-pi-2', 'L-pi-3', 'L-pi-4', 'L-pi-5', 'L-pi-6', 'L-pi-7', 'L-pi-8', 'L-pi-9', 'L-pi-10', 'L-pi-11', 'L-pi-12', 'R-pi-1', 'R-pi-2', 'R-pi-3', 'R-pi-4', 'R-pi-5', 'R-pi-6', 'R-pi-7', 'R-pi-8', 'R-pi-9', 'R-pi-10', 'R-pi-11', 'R-pi-12', 'R-xinbao-1', 'R-xinbao-2', 'R-xinbao-3', 'R-xinbao-4', 'R-xinbao-5', 'R-xinbao-6', 'R-xinbao-7', 'R-xinbao-8', 'R-xinbao-9', 'L-xinbao-1', 'L-xinbao-2', 'L-xinbao-3', 'L-xinbao-4', 'L-xinbao-5', 'L-xinbao-6', 'L-xinbao-7', 'L-xinbao-8', 'L-xinbao-9', 'L-wei-15', 'L-wei-16', 'L-wei-17', 'L-wei-18', 'L-wei-19', 'L-wei-20', 'L-wei-21', 'L-wei-22', 'L-wei-23', 'L-wei-24', 'L-wei-25', 'L-wei-26', 'L-wei-27', 'L-wei-28', 'L-wei-29', 'L-wei-30', 'R-wei-15', 'R-wei-16', 'R-wei-17', 'R-wei-18', 'R-wei-19', 'R-wei-20', 'R-wei-21', 'R-wei-22', 'R-wei-23', 'R-wei-24', 'R-wei-25', 'R-wei-26', 'R-wei-27', 'R-wei-28', 'R-wei-29', 'R-wei-30']
+train_ann_path = "/911G/data/temp/20221229新加手托脚托新数据/middle_up_nei_700/train.json"
+train_image_dir  ="/911G/data/temp/20221229新加手托脚托新数据/middle_up_nei_700/train"
+test_ann_path = "/911G/data/temp/20221229新加手托脚托新数据/middle_up_nei_700/test.json"
+test_image_dir  ="/911G/data/temp/20221229新加手托脚托新数据/middle_up_nei_700/test"
+metadata = {"thing_classes": ["person"],
+        "keypoint_names": kp_names,
+        "keypoint_connection_rules": [],
+        "keypoint_flip_map": [],
+            }
+register_coco_instances("shanyi_dataset_train",metadata = metadata,json_file=train_ann_path,image_root = train_image_dir)  #注册训练数据集
+register_coco_instances("shanyi_dataset_test",metadata = metadata,json_file=test_ann_path,image_root = test_image_dir) #注册验证数据集
 def build_evaluator(cfg, dataset_name, output_folder=None):
     """
     Create evaluator(s) for a given dataset.
@@ -123,7 +133,8 @@ def setup(args):
 
 def main(args):
     cfg = setup(args)
-
+    
+    
     if args.eval_only:
         model = Trainer.build_model(cfg)
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
@@ -151,7 +162,14 @@ def main(args):
 
 
 if __name__ == "__main__":
+    
+
+
+
     args = default_argument_parser().parse_args()
+    args.config_file = "configs/COCO-Keypoints/keypoint_rcnn_R_50_FPN_3x_custom.yaml"
+    args.num_gpu = 1
+    args.resume =True #中断训练的时候
     print("Command Line Args:", args)
     launch(
         main,

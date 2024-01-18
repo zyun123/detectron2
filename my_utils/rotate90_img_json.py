@@ -69,39 +69,44 @@ def chage_90_json(data_dict,clockwise = True):
             
     data_dict['imageHeight'] = img_width
     data_dict['imageWidth'] = img_height
+    data_dict['imageData'] = None
     return data_dict
 
 
 
 
 if __name__ == "__main__":
-    img_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec/hrnet_data"
-    new_img_dir = "/911G/data/temp/20221229新加手托脚托新数据/精确标注494套middle_up_nei_changerec/hrnet_data_rotate_90"
+    img_dir = "/911G/data/new_all_jldata/床体移动采集图像/down_wai/h/color_rotate_90"
+    new_img_dir = "/911G/data/new_all_jldata/床体移动采集图像/down_wai/h/color_rotate_90_90"
     os.makedirs(new_img_dir,exist_ok=True)
     #设定旋转方向
-    clockwise = False  #False 逆时针
-    # clockwise = True  #True表示顺时针
+    # clockwise = False  #False 逆时针
+    clockwise = True  #True表示顺时针
 
     os.makedirs(new_img_dir,exist_ok=True)
     for img in os.listdir(img_dir):
         if img.endswith("json"):
             continue
         img_path = os.path.join(img_dir,img) #图片路径
-        json_path = img_path.replace("jpg","json") #对应的json路径
+        
 
         image = cv2.imread(img_path)
         new_image = rot90_img(image,clockwise = clockwise)
 
-        with open(json_path,"r") as f:
-            data_dict = json.load(f)
+        new_image_path = os.path.join(new_img_dir,img) #新image的路径
 
-        new_data_dict = chage_90_json(data_dict,clockwise = clockwise)
+        json_path = img_path.replace("jpg","json") #对应的json路径
+        if os.path.exists(json_path):
+            with open(json_path,"r") as f:
+                data_dict = json.load(f)
 
-        new_image_path = os.path.join(new_img_dir,img) #新的路径
-        new_json_path = new_image_path.replace("jpg","json")
+            new_data_dict = chage_90_json(data_dict,clockwise = clockwise)
 
-        with open(new_json_path,"w") as f:
-            json.dump(new_data_dict,f,indent=4)
+            
+            new_json_path = new_image_path.replace("jpg","json")
+
+            with open(new_json_path,"w") as f:
+                json.dump(new_data_dict,f,indent=4)
 
         cv2.imshow("img",new_image)
         cv2.waitKey(1)

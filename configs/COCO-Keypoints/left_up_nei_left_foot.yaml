@@ -1,8 +1,8 @@
 DATALOADER:
   NUM_WORKERS: 4
 DATASETS:
-  TEST: ('middle_up_nei_test',)
-  TRAIN: ('middle_up_nei_train',)
+  TEST: ('left_down_wai_test',)
+  TRAIN: ('left_down_wai_train',)
 INPUT:
   MAX_SIZE_TEST: 256
   MAX_SIZE_TRAIN: 256
@@ -17,8 +17,8 @@ MODEL:
   RESNETS:
     DEPTH: 50
   ROI_KEYPOINT_HEAD:
-    #局部图局部识别 left_hand 5个点   新全经络 局部局部识别增加肺经  11个点
-    NUM_KEYPOINTS: 11
+    #局部图局部识别 right_foot 7个点
+    NUM_KEYPOINTS: 4
   WEIGHTS: /home/zy/Downloads/model_final_a6e10b.pkl
 OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
 SOLVER:

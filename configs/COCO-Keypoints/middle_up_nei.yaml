@@ -18,7 +18,7 @@ MODEL:
     DEPTH: 50
   ROI_KEYPOINT_HEAD:
     #全经络版本84个点 ， 保健版74个点  ,保健版+肺经 90个点
-    NUM_KEYPOINTS: 74
+    NUM_KEYPOINTS: 90
   WEIGHTS: /home/zy/Downloads/model_final_a6e10b.pkl
 OUTPUT_DIR: /mnt/dlData/EightModelOutputs/models/2022_03_21AM/middle_down_wai
 SOLVER:

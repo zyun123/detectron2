@@ -18,7 +18,7 @@ MODEL:
 
   ROI_KEYPOINT_HEAD:
     #全经络版本是90个点，调理版本是56
-    NUM_KEYPOINTS: 90
+    NUM_KEYPOINTS: 56
 
   WEIGHTS: /home/zy/Downloads/model_final_a6e10b.pkl
 
